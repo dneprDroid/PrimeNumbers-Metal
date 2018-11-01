@@ -16,8 +16,7 @@ public class PrimeNumbersGPU : PrimeNumbersProtocol {
     }
     
     private enum Params : Int {
-        case min = 0, max,
-             resultsBuffer, resultsCount
+        case min = 0, max, resultsBuffer
     }
     
     public init() {}
@@ -67,7 +66,6 @@ public class PrimeNumbersGPU : PrimeNumbersProtocol {
 
         var minParam = CUnsignedInt(min)
         var maxParam = CUnsignedInt(max)
-        var resultsCountParam = CUnsignedInt(resultsCount)
 
         var inputCount = CUnsignedInt(max-min+1)
         let threadCount = Int(inputCount)
@@ -84,9 +82,6 @@ public class PrimeNumbersGPU : PrimeNumbersProtocol {
                          length: MemoryLayout.size(ofValue: maxParam),
                          at: Params.max.rawValue)        
         encoder.setBuffer(resultsBuffer, offset: 0, at: Params.resultsBuffer.rawValue)
-        encoder.setBytes(&resultsCountParam,
-                         length: MemoryLayout.size(ofValue: resultsCountParam),
-                         at: Params.resultsCount.rawValue)        
         
         encoder.configure(expectedThreadCount: threadCount,
                           pipeline: pipeline)

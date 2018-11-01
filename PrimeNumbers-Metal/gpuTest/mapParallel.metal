@@ -10,26 +10,27 @@
 using namespace metal;
 
 
-typedef int DataType;
+typedef int Integer;
+typedef uint UInteger;
 
-bool isPrimeNumber(const uint num) {
-    for (uint i = 2; i < num/2; i++) {
+template<typename Integer>
+bool isPrimeNumber(const Integer num) {
+    for (Integer i = 2; i < num/2; i++) {
         if (num % i == 0)
             return false;
     }
     return true;
 }
 
-kernel void mapParallel(const device uint& minVal [[ buffer(0) ]],
-                        const device uint& maxVal [[ buffer(1) ]],
+kernel void mapParallel(const device UInteger& minVal [[ buffer(0) ]],
+                        const device UInteger& maxVal [[ buffer(1) ]],
                         
-                        device DataType* results [[ buffer(2) ]],
-                        const device uint& resultCount [[ buffer(3) ]],
+                        device Integer* results [[ buffer(2) ]],
                         
                         uint3 gid [[thread_position_in_grid]]) {
     
-    const uint inputIndex = gid.x;
-    const uint number = minVal + inputIndex;
+    const UInteger inputIndex = gid.x;
+    const UInteger number = minVal + inputIndex;
     if (isPrimeNumber(number))
         results[inputIndex] = number;
 }
