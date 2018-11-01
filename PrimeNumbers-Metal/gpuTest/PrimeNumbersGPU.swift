@@ -9,7 +9,7 @@
 import Metal
 
 
-public class PrimeNumbersGPU : PrimeNumbersProtocol {
+public final class PrimeNumbersGPU : PrimeNumbersProtocol {
     
     struct Constants {
         static let InvalidPrimeNumber:CInt = -1
@@ -20,23 +20,6 @@ public class PrimeNumbersGPU : PrimeNumbersProtocol {
     }
     
     public init() {}
-    
-    private func primeNumbersCount(number: CInt)->Int {
-        #if DEBUG
-        return Int(number)
-        #endif
-        if number == 0 {
-            return 0
-        }
-        let x = Double(number)
-        // https://en.wikipedia.org/wiki/Prime-counting_function
-        let result = x/log10(x - 1)
-        return Int(result * 1.5)
-    }
-    
-    private func primeNumbersCount(min:CInt, max:CInt)->Int {
-        return abs(primeNumbersCount(number: max) - primeNumbersCount(number: min)) + 1
-    }
     
     public func compute(min: CInt, max: CInt)->[CInt] {
         assert(min < max, "Error: min >= max, where min=\(min), max=\(max)")
@@ -67,7 +50,7 @@ public class PrimeNumbersGPU : PrimeNumbersProtocol {
         var minParam = CUnsignedInt(min)
         var maxParam = CUnsignedInt(max)
 
-        var inputCount = CUnsignedInt(max-min+1)
+        let inputCount = CUnsignedInt(max-min+1)
         let threadCount = Int(inputCount)
         
         print("--------------------")
@@ -93,6 +76,23 @@ public class PrimeNumbersGPU : PrimeNumbersProtocol {
                                                              capacity: resultsCount)
         return Array(UnsafeBufferPointer(start: resultsOut, count: resultsCount))
               .filter { $0 != Constants.InvalidPrimeNumber}
+    }
+    
+    
+    private func primeNumbersCount(number: CInt)->Int {
+        return Int(number)
+        
+        //        if number == 0 {
+        //            return 0
+        //        }
+        //        let x = Double(number)
+        //        // https://en.wikipedia.org/wiki/Prime-counting_function
+        //        let result = x/log10(x - 1)
+        //        return Int(result * 1.5)
+    }
+    
+    private func primeNumbersCount(min:CInt, max:CInt)->Int {
+        return abs(primeNumbersCount(number: max) - primeNumbersCount(number: min)) + 1
     }
 }
 

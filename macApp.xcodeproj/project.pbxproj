@@ -12,6 +12,7 @@
 		226F8E97218A30B6008A59F6 /* PrimeNumbersProtocol.swift in Sources */ = {isa = PBXBuildFile; fileRef = 226F8E96218A30B6008A59F6 /* PrimeNumbersProtocol.swift */; };
 		226F8E99218A3173008A59F6 /* PrimeNumbersGPU.swift in Sources */ = {isa = PBXBuildFile; fileRef = 226F8E98218A3173008A59F6 /* PrimeNumbersGPU.swift */; };
 		226F8E9B218A3350008A59F6 /* mapParallel.metal in Sources */ = {isa = PBXBuildFile; fileRef = 226F8E9A218A3350008A59F6 /* mapParallel.metal */; };
+		226F8EAE218B6246008A59F6 /* PrimeNumbersCPU.swift in Sources */ = {isa = PBXBuildFile; fileRef = 226F8EAD218B6246008A59F6 /* PrimeNumbersCPU.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXCopyFilesBuildPhase section */
@@ -33,6 +34,7 @@
 		226F8E96218A30B6008A59F6 /* PrimeNumbersProtocol.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PrimeNumbersProtocol.swift; sourceTree = "<group>"; };
 		226F8E98218A3173008A59F6 /* PrimeNumbersGPU.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PrimeNumbersGPU.swift; sourceTree = "<group>"; };
 		226F8E9A218A3350008A59F6 /* mapParallel.metal */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.metal; path = mapParallel.metal; sourceTree = "<group>"; };
+		226F8EAD218B6246008A59F6 /* PrimeNumbersCPU.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PrimeNumbersCPU.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -84,6 +86,7 @@
 		226F8E8C218A305E008A59F6 /* PrimeNumbers-Metal */ = {
 			isa = PBXGroup;
 			children = (
+				226F8EAC218B6238008A59F6 /* cpuTest */,
 				226F8EAB218B4EA8008A59F6 /* gpuTest */,
 				226F8E96218A30B6008A59F6 /* PrimeNumbersProtocol.swift */,
 			);
@@ -104,6 +107,14 @@
 				226F8E9A218A3350008A59F6 /* mapParallel.metal */,
 			);
 			path = gpuTest;
+			sourceTree = "<group>";
+		};
+		226F8EAC218B6238008A59F6 /* cpuTest */ = {
+			isa = PBXGroup;
+			children = (
+				226F8EAD218B6246008A59F6 /* PrimeNumbersCPU.swift */,
+			);
+			path = cpuTest;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -204,6 +215,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				226F8E97218A30B6008A59F6 /* PrimeNumbersProtocol.swift in Sources */,
+				226F8EAE218B6246008A59F6 /* PrimeNumbersCPU.swift in Sources */,
 				226F8E99218A3173008A59F6 /* PrimeNumbersGPU.swift in Sources */,
 				226F8E9B218A3350008A59F6 /* mapParallel.metal in Sources */,
 			);
