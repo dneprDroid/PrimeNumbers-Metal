@@ -84,9 +84,8 @@
 		226F8E8C218A305E008A59F6 /* PrimeNumbers-Metal */ = {
 			isa = PBXGroup;
 			children = (
+				226F8EAB218B4EA8008A59F6 /* gpuTest */,
 				226F8E96218A30B6008A59F6 /* PrimeNumbersProtocol.swift */,
-				226F8E98218A3173008A59F6 /* PrimeNumbersGPU.swift */,
-				226F8E9A218A3350008A59F6 /* compute.metal */,
 			);
 			path = "PrimeNumbers-Metal";
 			sourceTree = "<group>";
@@ -96,6 +95,15 @@
 			children = (
 			);
 			name = Frameworks;
+			sourceTree = "<group>";
+		};
+		226F8EAB218B4EA8008A59F6 /* gpuTest */ = {
+			isa = PBXGroup;
+			children = (
+				226F8E98218A3173008A59F6 /* PrimeNumbersGPU.swift */,
+				226F8E9A218A3350008A59F6 /* compute.metal */,
+			);
+			path = gpuTest;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */

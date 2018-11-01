@@ -11,8 +11,13 @@ import Metal
 
 public class PrimeNumbersGPU : PrimeNumbersProtocol {
     
+    struct Constants {
+        static let InvalidPrimeNumber:CInt = -1
+    }
+    
     private enum Params : Int {
-        case min = 0, max, resultsBuffer, resultsCount
+        case min = 0, max,
+             resultsBuffer, resultsCount
     }
     
     public init() {}
@@ -43,7 +48,7 @@ public class PrimeNumbersGPU : PrimeNumbersProtocol {
             fatalError("This device doesn't support Metal")
         }
         let lib = device.newDefaultLibrary()!
-        let compute = lib.makeFunction(name: "compute")!
+        let compute = lib.makeFunction(name: "mapParallel")!
         let pipeline = try! device.makeComputePipelineState(function: compute)
         
         
@@ -55,7 +60,7 @@ public class PrimeNumbersGPU : PrimeNumbersProtocol {
 
         // Params:
         let resultsCount = primeNumbersCount(min: min, max: max)
-        var results = [CInt](repeating: -1, count: resultsCount)
+        var results = [CInt](repeating: Constants.InvalidPrimeNumber, count: resultsCount)
         let resultsBuffer = device.makeBuffer(bytes: &results,
                                               length: MemoryLayout<CInt>.stride * resultsCount,
                                               options: [])
@@ -64,22 +69,25 @@ public class PrimeNumbersGPU : PrimeNumbersProtocol {
         var maxParam = CUnsignedInt(max)
         var resultsCountParam = CUnsignedInt(resultsCount)
 
-        let threadCount = Int(max-min+1)
-
+        var inputCount = CUnsignedInt(max-min+1)
+        let threadCount = Int(inputCount)
+        
         print("--------------------")
         print("Thread Count : \(threadCount)")
         print("Expected results count : \(resultsCount)")
         print("--------------------")
+        
         encoder.setBytes(&minParam,
                          length: MemoryLayout.size(ofValue: minParam),
                          at: Params.min.rawValue)
         encoder.setBytes(&maxParam,
                          length: MemoryLayout.size(ofValue: maxParam),
-                         at: Params.max.rawValue)
+                         at: Params.max.rawValue)        
         encoder.setBuffer(resultsBuffer, offset: 0, at: Params.resultsBuffer.rawValue)
         encoder.setBytes(&resultsCountParam,
                          length: MemoryLayout.size(ofValue: resultsCountParam),
-                         at: Params.resultsCount.rawValue)
+                         at: Params.resultsCount.rawValue)        
+        
         encoder.configure(expectedThreadCount: threadCount,
                           pipeline: pipeline)
         encoder.endEncoding()
@@ -89,6 +97,7 @@ public class PrimeNumbersGPU : PrimeNumbersProtocol {
         let resultsOut = resultsBuffer.contents().bindMemory(to: CInt.self,
                                                              capacity: resultsCount)
         return Array(UnsafeBufferPointer(start: resultsOut, count: resultsCount))
+              .filter { $0 != Constants.InvalidPrimeNumber}
     }
 }
 
