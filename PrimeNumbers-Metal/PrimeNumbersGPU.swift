@@ -18,6 +18,9 @@ public class PrimeNumbersGPU : PrimeNumbersProtocol {
     public init() {}
     
     private func primeNumbersCount(number: CInt)->Int {
+        #if DEBUG
+        return Int(number)
+        #endif
         if number == 0 {
             return 0
         }
@@ -28,7 +31,7 @@ public class PrimeNumbersGPU : PrimeNumbersProtocol {
     }
     
     private func primeNumbersCount(min:CInt, max:CInt)->Int {
-        return abs(primeNumbersCount(number: max) - primeNumbersCount(number: min))
+        return abs(primeNumbersCount(number: max) - primeNumbersCount(number: min)) + 1
     }
     
     public func compute(min: CInt, max: CInt)->[CInt] {
@@ -61,7 +64,12 @@ public class PrimeNumbersGPU : PrimeNumbersProtocol {
         var maxParam = CUnsignedInt(max)
         var resultsCountParam = CUnsignedInt(resultsCount)
 
+        let threadCount = Int(max-min+1)
 
+        print("--------------------")
+        print("Thread Count : \(threadCount)")
+        print("Expected results count : \(resultsCount)")
+        print("--------------------")
         encoder.setBytes(&minParam,
                          length: MemoryLayout.size(ofValue: minParam),
                          at: Params.min.rawValue)
@@ -72,7 +80,7 @@ public class PrimeNumbersGPU : PrimeNumbersProtocol {
         encoder.setBytes(&resultsCountParam,
                          length: MemoryLayout.size(ofValue: resultsCountParam),
                          at: Params.resultsCount.rawValue)
-        encoder.configure(expectedThreadCount: Int(max-min),
+        encoder.configure(expectedThreadCount: threadCount,
                           pipeline: pipeline)
         encoder.endEncoding()
         
@@ -92,12 +100,12 @@ extension MTLComputeCommandEncoder {
         
         let threadgroupsCount:Int
         let threadsCountPerGroup:Int
-        
+
         if expectedThreadCount < maxThreadCount {
             threadgroupsCount = 1
             threadsCountPerGroup = expectedThreadCount
         } else {
-            threadgroupsCount = expectedThreadCount/maxThreadCount
+            threadgroupsCount = expectedThreadCount/maxThreadCount + 1
             threadsCountPerGroup = maxThreadCount
         }
         let threadgroupsPerGrid = MTLSize(width: threadgroupsCount,
@@ -106,8 +114,15 @@ extension MTLComputeCommandEncoder {
 
         let threadsPerThreadgroup = MTLSize(width: threadsCountPerGroup,
                                             height: 1, depth: 1)
-        self.dispatchThreadgroups(threadgroupsPerGrid,
-                                  threadsPerThreadgroup: threadsPerThreadgroup)
+        
+        print("----------------------------------------------------")
+        print("maxTotalThreadsPerThreadgroup = \(pipeline.maxTotalThreadsPerThreadgroup)")
+        print("threadExecutionWidth = \(pipeline.threadExecutionWidth)")
+        print("----------------------------------------------------")
+        
+        dispatchThreadgroups(threadgroupsPerGrid,
+                             threadsPerThreadgroup: threadsPerThreadgroup)
+
 
     }
 }

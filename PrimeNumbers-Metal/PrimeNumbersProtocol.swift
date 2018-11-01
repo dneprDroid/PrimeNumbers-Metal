@@ -17,9 +17,10 @@ public protocol PrimeNumbersProtocol {
     
 }
 
-public extension PrimeNumbersProtocol {
+public extension PrimeNumbersProtocol where Value : Strideable,
+                                            Value.Stride : SignedInteger {
     
-    public func compute(range: Range<Value>)->[Value] {
+    public func compute(range: CountableClosedRange<Value>)->[Value] {
         return self.compute(min: range.lowerBound, max: range.upperBound)
     }
 }

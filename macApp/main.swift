@@ -11,6 +11,6 @@ import PrimeNumbers_Metal
 let gpuTest = PrimeNumbersGPU()
 
 
-let primeNumbers = gpuTest.compute(range: 0..<10)
+let primeNumbers = gpuTest.compute(range: 0...40)
 
 print("Prime Numbers:\n \(primeNumbers)")

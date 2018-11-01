@@ -18,8 +18,8 @@ kernel void compute(const device uint& minVal [[ buffer(0) ]],
                     device DataType* results [[ buffer(2) ]],
                     const device uint& resultCount [[ buffer(3) ]],
                    
-                    ushort3 gid [[thread_position_in_grid]]) {
+                    uint3 gid [[thread_position_in_grid]]) {
     
     int resultIndex = gid.x;
-    results[0] = max(resultIndex, results[0]);
+    results[resultIndex] = resultIndex;
 }
