@@ -29,7 +29,7 @@ public final class PrimeNumbersGPU : PrimeNumbersProtocol {
         guard let device = MTLCreateSystemDefaultDevice() else {
             fatalError("This device doesn't support Metal")
         }
-        let lib = device.newDefaultLibrary()!
+        let lib = try! device.makeDefaultLibrary(bundle: Bundle(for: type(of: self)))
         let compute = lib.makeFunction(name: "mapParallel")!
         let pipeline = try! device.makeComputePipelineState(function: compute)
         
