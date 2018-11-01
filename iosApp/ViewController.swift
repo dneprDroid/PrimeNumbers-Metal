@@ -19,23 +19,23 @@ class ViewController: UIViewController {
     
     private func test() {
         DispatchQueue.global().async {
+            
             let gpuTest = PrimeNumbersGPU()
             let cpuTest = PrimeNumbersCPU()
             
             let gpuResults = gpuTest.computeTest(testName: "GPU Test",
-                                                 range: 1...40000,
-                                                 printPrimeNumbers: false)
+                                                 range: 1...40_000, printPrimeNumbers: false)
             
             let cpuResults = cpuTest.computeTest(testName: "CPU Test",
-                                                 range: 1...40000,
-                                                 printPrimeNumbers: false)
+                                                 range: 1...40_000, printPrimeNumbers: false)
             
             print("Checking....")
             assert(cpuResults.elementsEqual(gpuResults, by: self.checkArrays),
-                   "Something went wrong: gpu results != cpu results:\n" +
-                    "CPU: \(cpuResults)\n" +
+                    "Something went wrong: gpu results != cpu results:\n" +
+                    "CPU (\(cpuResults.count) items): \(cpuResults)\n" +
                     "----------------------------------------\n" +
-                    "GPU: \(gpuResults)")
+                    "GPU (\(gpuResults.count) items): \(gpuResults)")
+            
             print("Tasks were completed successfully.")
         }
     }

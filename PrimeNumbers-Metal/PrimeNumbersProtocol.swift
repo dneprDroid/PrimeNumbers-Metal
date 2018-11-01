@@ -35,6 +35,7 @@ public extension PrimeNumbersProtocol {
     }
 }
 
+//MARK: CountableClosedRange
 public extension PrimeNumbersProtocol where ValueType : Strideable,
                                             ValueType.Stride : SignedInteger {
     
