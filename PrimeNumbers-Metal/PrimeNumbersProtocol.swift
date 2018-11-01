@@ -26,12 +26,16 @@ public extension PrimeNumbersProtocol where Value : Strideable,
     
     @discardableResult
     public func computeTest(testName: String,
-                            range: CountableClosedRange<Value>)->[Value] {
+                            range: CountableClosedRange<Value>,
+                            printPrimeNumbers: Bool = false)->[Value] {
         let currentTime = Date()
         let primeNumbers = self.compute(range: range)
         let taskTime:TimeInterval = -currentTime.timeIntervalSinceNow
+        
         print("'\(testName)': \(taskTime) sec")
-//        print("Prime Numbers for '\(testName)':\n \(primeNumbers)")
+        if printPrimeNumbers {
+            print("Prime Numbers for '\(testName)':\n \(primeNumbers)")
+        }
         return primeNumbers
     }
 }

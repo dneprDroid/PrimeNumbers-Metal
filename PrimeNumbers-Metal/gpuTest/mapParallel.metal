@@ -14,7 +14,7 @@ typedef int Integer;
 typedef uint UInteger;
 
 template<typename Integer>
-bool isPrimeNumber(const Integer num) {
+inline bool isPrimeNumber(const Integer num) {
     for (Integer i = 2; i < num/2; i++) {
         if (num % i == 0)
             return false;
@@ -31,6 +31,9 @@ kernel void mapParallel(const device UInteger& minVal [[ buffer(0) ]],
     
     const UInteger inputIndex = gid.x;
     const UInteger number = minVal + inputIndex;
+    if (number % 2 == 0 && number != 2) {
+        return;
+    }
     if (isPrimeNumber(number))
         results[inputIndex] = number;
 }

@@ -14,4 +14,8 @@ let cpuTest = PrimeNumbersCPU()
 let gpuResults = gpuTest.computeTest(testName: "GPU Test", range: 0...4000)
 let cpuResults = cpuTest.computeTest(testName: "CPU Test", range: 0...4000)
 
-assert(cpuResults.elementsEqual(gpuResults), "Something wrong: gpu results != cpu results")
+assert(cpuResults.elementsEqual(gpuResults),
+        "Something went wrong: gpu results != cpu results:\n" +
+        "CPU: \(cpuResults)\n" +
+        "----------------------------------------\n" +
+        "GPU: \(gpuResults)")

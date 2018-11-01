@@ -16,7 +16,8 @@ public final class PrimeNumbersCPU : PrimeNumbersProtocol {
     
     public func compute(min: CInt, max: CInt)->[CInt] {
         var results = [CInt]()
-        for number in min...max {
+        let start = min == 0 ? 1 : min
+        for number in start...max {
             if !isPrimeNumber(number) {
                 continue
             }
@@ -26,7 +27,7 @@ public final class PrimeNumbersCPU : PrimeNumbersProtocol {
     }
     
     private func isPrimeNumber(_ number: CInt)->Bool {
-        if number/2 <= 2 {
+        if number/2 < 2 {
             return true
         }
         for i in 2...(number/2) {

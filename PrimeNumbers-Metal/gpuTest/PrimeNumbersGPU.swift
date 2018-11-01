@@ -119,10 +119,10 @@ extension MTLComputeCommandEncoder {
         let threadsPerThreadgroup = MTLSize(width: threadsCountPerGroup,
                                             height: 1, depth: 1)
         
-        print("----------------------------------------------------")
-        print("maxTotalThreadsPerThreadgroup = \(pipeline.maxTotalThreadsPerThreadgroup)")
-        print("threadExecutionWidth = \(pipeline.threadExecutionWidth)")
-        print("----------------------------------------------------")
+//        print("----------------------------------------------------")
+//        print("maxTotalThreadsPerThreadgroup = \(pipeline.maxTotalThreadsPerThreadgroup)")
+//        print("threadExecutionWidth = \(pipeline.threadExecutionWidth)")
+//        print("----------------------------------------------------")
         
         dispatchThreadgroups(threadgroupsPerGrid,
                              threadsPerThreadgroup: threadsPerThreadgroup)
