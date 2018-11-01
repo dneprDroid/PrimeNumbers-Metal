@@ -6,7 +6,11 @@
 //  Copyright © 2018 Alex. All rights reserved.
 //
 
-import Foundation
+import PrimeNumbers_Metal
 
-print("Hello, World!")
+let gpuTest = PrimeNumbersGPU()
 
+
+let primeNumbers = gpuTest.compute(range: 0..<10)
+
+print("Prime Numbers:\n \(primeNumbers)")
