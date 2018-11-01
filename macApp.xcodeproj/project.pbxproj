@@ -7,40 +7,52 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
-		226F8E81218A3024008A59F6 /* main.swift in Sources */ = {isa = PBXBuildFile; fileRef = 226F8E80218A3024008A59F6 /* main.swift */; };
-		226F8E95218A3069008A59F6 /* libPrimeNumbers-Metal.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 226F8E8B218A305D008A59F6 /* libPrimeNumbers-Metal.a */; };
-		226F8E97218A30B6008A59F6 /* PrimeNumbersProtocol.swift in Sources */ = {isa = PBXBuildFile; fileRef = 226F8E96218A30B6008A59F6 /* PrimeNumbersProtocol.swift */; };
-		226F8E99218A3173008A59F6 /* PrimeNumbersGPU.swift in Sources */ = {isa = PBXBuildFile; fileRef = 226F8E98218A3173008A59F6 /* PrimeNumbersGPU.swift */; };
-		226F8E9B218A3350008A59F6 /* mapParallel.metal in Sources */ = {isa = PBXBuildFile; fileRef = 226F8E9A218A3350008A59F6 /* mapParallel.metal */; };
-		226F8EAE218B6246008A59F6 /* PrimeNumbersCPU.swift in Sources */ = {isa = PBXBuildFile; fileRef = 226F8EAD218B6246008A59F6 /* PrimeNumbersCPU.swift */; };
+		223F6DFD218B8A9C004FB958 /* PrimeNumbers_Metal.h in Headers */ = {isa = PBXBuildFile; fileRef = 223F6DFB218B8A9C004FB958 /* PrimeNumbers_Metal.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		223F6E00218B8A9C004FB958 /* PrimeNumbers_Metal.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 223F6DF9218B8A9C004FB958 /* PrimeNumbers_Metal.framework */; };
+		223F6E01218B8A9C004FB958 /* PrimeNumbers_Metal.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = 223F6DF9218B8A9C004FB958 /* PrimeNumbers_Metal.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
+		223F6E0C218B8AAB004FB958 /* PrimeNumbersProtocol.swift in Sources */ = {isa = PBXBuildFile; fileRef = 223F6E06218B8AAB004FB958 /* PrimeNumbersProtocol.swift */; };
+		223F6E0D218B8AAB004FB958 /* PrimeNumbersCPU.swift in Sources */ = {isa = PBXBuildFile; fileRef = 223F6E08218B8AAB004FB958 /* PrimeNumbersCPU.swift */; };
+		223F6E0E218B8AAB004FB958 /* PrimeNumbersGPU.swift in Sources */ = {isa = PBXBuildFile; fileRef = 223F6E0A218B8AAB004FB958 /* PrimeNumbersGPU.swift */; };
+		223F6E0F218B8AAB004FB958 /* mapParallel.metal in Sources */ = {isa = PBXBuildFile; fileRef = 223F6E0B218B8AAB004FB958 /* mapParallel.metal */; };
 		226F8EB6218B6B07008A59F6 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 226F8EB5218B6B07008A59F6 /* AppDelegate.swift */; };
 		226F8EB8218B6B07008A59F6 /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 226F8EB7218B6B07008A59F6 /* ViewController.swift */; };
 		226F8EBB218B6B07008A59F6 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 226F8EB9218B6B07008A59F6 /* Main.storyboard */; };
 		226F8EBD218B6B09008A59F6 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 226F8EBC218B6B09008A59F6 /* Assets.xcassets */; };
 		226F8EC0218B6B09008A59F6 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 226F8EBE218B6B09008A59F6 /* LaunchScreen.storyboard */; };
-		226F8EC5218B6B4D008A59F6 /* libPrimeNumbers-Metal.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 226F8E8B218A305D008A59F6 /* libPrimeNumbers-Metal.a */; };
 /* End PBXBuildFile section */
 
+/* Begin PBXContainerItemProxy section */
+		223F6DFE218B8A9C004FB958 /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = 226F8E75218A3024008A59F6 /* Project object */;
+			proxyType = 1;
+			remoteGlobalIDString = 223F6DF8218B8A9C004FB958;
+			remoteInfo = "PrimeNumbers-Metal";
+		};
+/* End PBXContainerItemProxy section */
+
 /* Begin PBXCopyFilesBuildPhase section */
-		226F8E7B218A3024008A59F6 /* CopyFiles */ = {
+		223F6E05218B8A9C004FB958 /* Embed Frameworks */ = {
 			isa = PBXCopyFilesBuildPhase;
 			buildActionMask = 2147483647;
-			dstPath = /usr/share/man/man1/;
-			dstSubfolderSpec = 0;
+			dstPath = "";
+			dstSubfolderSpec = 10;
 			files = (
+				223F6E01218B8A9C004FB958 /* PrimeNumbers_Metal.framework in Embed Frameworks */,
 			);
-			runOnlyForDeploymentPostprocessing = 1;
+			name = "Embed Frameworks";
+			runOnlyForDeploymentPostprocessing = 0;
 		};
 /* End PBXCopyFilesBuildPhase section */
 
 /* Begin PBXFileReference section */
-		226F8E7D218A3024008A59F6 /* macApp */ = {isa = PBXFileReference; explicitFileType = "compiled.mach-o.executable"; includeInIndex = 0; path = macApp; sourceTree = BUILT_PRODUCTS_DIR; };
-		226F8E80218A3024008A59F6 /* main.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = main.swift; sourceTree = "<group>"; };
-		226F8E8B218A305D008A59F6 /* libPrimeNumbers-Metal.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = "libPrimeNumbers-Metal.a"; sourceTree = BUILT_PRODUCTS_DIR; };
-		226F8E96218A30B6008A59F6 /* PrimeNumbersProtocol.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PrimeNumbersProtocol.swift; sourceTree = "<group>"; };
-		226F8E98218A3173008A59F6 /* PrimeNumbersGPU.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PrimeNumbersGPU.swift; sourceTree = "<group>"; };
-		226F8E9A218A3350008A59F6 /* mapParallel.metal */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.metal; path = mapParallel.metal; sourceTree = "<group>"; };
-		226F8EAD218B6246008A59F6 /* PrimeNumbersCPU.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PrimeNumbersCPU.swift; sourceTree = "<group>"; };
+		223F6DF9218B8A9C004FB958 /* PrimeNumbers_Metal.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = PrimeNumbers_Metal.framework; sourceTree = BUILT_PRODUCTS_DIR; };
+		223F6DFB218B8A9C004FB958 /* PrimeNumbers_Metal.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = PrimeNumbers_Metal.h; sourceTree = "<group>"; };
+		223F6DFC218B8A9C004FB958 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		223F6E06218B8AAB004FB958 /* PrimeNumbersProtocol.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PrimeNumbersProtocol.swift; sourceTree = "<group>"; };
+		223F6E08218B8AAB004FB958 /* PrimeNumbersCPU.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PrimeNumbersCPU.swift; sourceTree = "<group>"; };
+		223F6E0A218B8AAB004FB958 /* PrimeNumbersGPU.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PrimeNumbersGPU.swift; sourceTree = "<group>"; };
+		223F6E0B218B8AAB004FB958 /* mapParallel.metal */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.metal; path = mapParallel.metal; sourceTree = "<group>"; };
 		226F8EB3218B6B07008A59F6 /* iosApp.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = iosApp.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		226F8EB5218B6B07008A59F6 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		226F8EB7218B6B07008A59F6 /* ViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ViewController.swift; sourceTree = "<group>"; };
@@ -51,15 +63,7 @@
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
-		226F8E7A218A3024008A59F6 /* Frameworks */ = {
-			isa = PBXFrameworksBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
-				226F8E95218A3069008A59F6 /* libPrimeNumbers-Metal.a in Frameworks */,
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-		};
-		226F8E88218A305D008A59F6 /* Frameworks */ = {
+		223F6DF5218B8A9C004FB958 /* Frameworks */ = {
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
@@ -70,18 +74,48 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				226F8EC5218B6B4D008A59F6 /* libPrimeNumbers-Metal.a in Frameworks */,
+				223F6E00218B8A9C004FB958 /* PrimeNumbers_Metal.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		223F6DFA218B8A9C004FB958 /* PrimeNumbers-Metal */ = {
+			isa = PBXGroup;
+			children = (
+				223F6E07218B8AAB004FB958 /* cpuTest */,
+				223F6E09218B8AAB004FB958 /* gpuTest */,
+				223F6E06218B8AAB004FB958 /* PrimeNumbersProtocol.swift */,
+				223F6DFB218B8A9C004FB958 /* PrimeNumbers_Metal.h */,
+				223F6DFC218B8A9C004FB958 /* Info.plist */,
+			);
+			path = "PrimeNumbers-Metal";
+			sourceTree = "<group>";
+		};
+		223F6E07218B8AAB004FB958 /* cpuTest */ = {
+			isa = PBXGroup;
+			children = (
+				223F6E08218B8AAB004FB958 /* PrimeNumbersCPU.swift */,
+			);
+			name = cpuTest;
+			path = "../../PrimeNumbers-Metal/cpuTest";
+			sourceTree = "<group>";
+		};
+		223F6E09218B8AAB004FB958 /* gpuTest */ = {
+			isa = PBXGroup;
+			children = (
+				223F6E0A218B8AAB004FB958 /* PrimeNumbersGPU.swift */,
+				223F6E0B218B8AAB004FB958 /* mapParallel.metal */,
+			);
+			name = gpuTest;
+			path = "../../PrimeNumbers-Metal/gpuTest";
+			sourceTree = "<group>";
+		};
 		226F8E74218A3024008A59F6 = {
 			isa = PBXGroup;
 			children = (
-				226F8E8C218A305E008A59F6 /* PrimeNumbers-Metal */,
-				226F8E7F218A3024008A59F6 /* macApp */,
+				223F6DFA218B8A9C004FB958 /* PrimeNumbers-Metal */,
 				226F8EB4218B6B07008A59F6 /* iosApp */,
 				226F8E7E218A3024008A59F6 /* Products */,
 				226F8E94218A3069008A59F6 /* Frameworks */,
@@ -91,29 +125,10 @@
 		226F8E7E218A3024008A59F6 /* Products */ = {
 			isa = PBXGroup;
 			children = (
-				226F8E7D218A3024008A59F6 /* macApp */,
-				226F8E8B218A305D008A59F6 /* libPrimeNumbers-Metal.a */,
 				226F8EB3218B6B07008A59F6 /* iosApp.app */,
+				223F6DF9218B8A9C004FB958 /* PrimeNumbers_Metal.framework */,
 			);
 			name = Products;
-			sourceTree = "<group>";
-		};
-		226F8E7F218A3024008A59F6 /* macApp */ = {
-			isa = PBXGroup;
-			children = (
-				226F8E80218A3024008A59F6 /* main.swift */,
-			);
-			path = macApp;
-			sourceTree = "<group>";
-		};
-		226F8E8C218A305E008A59F6 /* PrimeNumbers-Metal */ = {
-			isa = PBXGroup;
-			children = (
-				226F8EAC218B6238008A59F6 /* cpuTest */,
-				226F8EAB218B4EA8008A59F6 /* gpuTest */,
-				226F8E96218A30B6008A59F6 /* PrimeNumbersProtocol.swift */,
-			);
-			path = "PrimeNumbers-Metal";
 			sourceTree = "<group>";
 		};
 		226F8E94218A3069008A59F6 /* Frameworks */ = {
@@ -121,23 +136,6 @@
 			children = (
 			);
 			name = Frameworks;
-			sourceTree = "<group>";
-		};
-		226F8EAB218B4EA8008A59F6 /* gpuTest */ = {
-			isa = PBXGroup;
-			children = (
-				226F8E98218A3173008A59F6 /* PrimeNumbersGPU.swift */,
-				226F8E9A218A3350008A59F6 /* mapParallel.metal */,
-			);
-			path = gpuTest;
-			sourceTree = "<group>";
-		};
-		226F8EAC218B6238008A59F6 /* cpuTest */ = {
-			isa = PBXGroup;
-			children = (
-				226F8EAD218B6246008A59F6 /* PrimeNumbersCPU.swift */,
-			);
-			path = cpuTest;
 			sourceTree = "<group>";
 		};
 		226F8EB4218B6B07008A59F6 /* iosApp */ = {
@@ -156,40 +154,25 @@
 /* End PBXGroup section */
 
 /* Begin PBXHeadersBuildPhase section */
-		226F8E89218A305D008A59F6 /* Headers */ = {
+		223F6DF6218B8A9C004FB958 /* Headers */ = {
 			isa = PBXHeadersBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				223F6DFD218B8A9C004FB958 /* PrimeNumbers_Metal.h in Headers */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
 /* End PBXHeadersBuildPhase section */
 
 /* Begin PBXNativeTarget section */
-		226F8E7C218A3024008A59F6 /* macApp */ = {
+		223F6DF8218B8A9C004FB958 /* PrimeNumbers-Metal */ = {
 			isa = PBXNativeTarget;
-			buildConfigurationList = 226F8E84218A3024008A59F6 /* Build configuration list for PBXNativeTarget "macApp" */;
+			buildConfigurationList = 223F6E02218B8A9C004FB958 /* Build configuration list for PBXNativeTarget "PrimeNumbers-Metal" */;
 			buildPhases = (
-				226F8E79218A3024008A59F6 /* Sources */,
-				226F8E7A218A3024008A59F6 /* Frameworks */,
-				226F8E7B218A3024008A59F6 /* CopyFiles */,
-			);
-			buildRules = (
-			);
-			dependencies = (
-			);
-			name = macApp;
-			productName = macApp;
-			productReference = 226F8E7D218A3024008A59F6 /* macApp */;
-			productType = "com.apple.product-type.tool";
-		};
-		226F8E8A218A305D008A59F6 /* PrimeNumbers-Metal */ = {
-			isa = PBXNativeTarget;
-			buildConfigurationList = 226F8E91218A305E008A59F6 /* Build configuration list for PBXNativeTarget "PrimeNumbers-Metal" */;
-			buildPhases = (
-				226F8E87218A305D008A59F6 /* Sources */,
-				226F8E88218A305D008A59F6 /* Frameworks */,
-				226F8E89218A305D008A59F6 /* Headers */,
+				223F6DF4218B8A9C004FB958 /* Sources */,
+				223F6DF5218B8A9C004FB958 /* Frameworks */,
+				223F6DF6218B8A9C004FB958 /* Headers */,
+				223F6DF7218B8A9C004FB958 /* Resources */,
 			);
 			buildRules = (
 			);
@@ -197,8 +180,8 @@
 			);
 			name = "PrimeNumbers-Metal";
 			productName = "PrimeNumbers-Metal";
-			productReference = 226F8E8B218A305D008A59F6 /* libPrimeNumbers-Metal.a */;
-			productType = "com.apple.product-type.library.static";
+			productReference = 223F6DF9218B8A9C004FB958 /* PrimeNumbers_Metal.framework */;
+			productType = "com.apple.product-type.framework";
 		};
 		226F8EB2218B6B07008A59F6 /* iosApp */ = {
 			isa = PBXNativeTarget;
@@ -207,10 +190,12 @@
 				226F8EAF218B6B07008A59F6 /* Sources */,
 				226F8EB0218B6B07008A59F6 /* Frameworks */,
 				226F8EB1218B6B07008A59F6 /* Resources */,
+				223F6E05218B8A9C004FB958 /* Embed Frameworks */,
 			);
 			buildRules = (
 			);
 			dependencies = (
+				223F6DFF218B8A9C004FB958 /* PBXTargetDependency */,
 			);
 			name = iosApp;
 			productName = iosApp;
@@ -227,10 +212,7 @@
 				LastUpgradeCheck = 0930;
 				ORGANIZATIONNAME = Alex;
 				TargetAttributes = {
-					226F8E7C218A3024008A59F6 = {
-						CreatedOnToolsVersion = 9.3.1;
-					};
-					226F8E8A218A305D008A59F6 = {
+					223F6DF8218B8A9C004FB958 = {
 						CreatedOnToolsVersion = 9.3.1;
 						LastSwiftMigration = 0930;
 					};
@@ -252,14 +234,20 @@
 			projectDirPath = "";
 			projectRoot = "";
 			targets = (
-				226F8E7C218A3024008A59F6 /* macApp */,
-				226F8E8A218A305D008A59F6 /* PrimeNumbers-Metal */,
 				226F8EB2218B6B07008A59F6 /* iosApp */,
+				223F6DF8218B8A9C004FB958 /* PrimeNumbers-Metal */,
 			);
 		};
 /* End PBXProject section */
 
 /* Begin PBXResourcesBuildPhase section */
+		223F6DF7218B8A9C004FB958 /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
 		226F8EB1218B6B07008A59F6 /* Resources */ = {
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
@@ -273,22 +261,14 @@
 /* End PBXResourcesBuildPhase section */
 
 /* Begin PBXSourcesBuildPhase section */
-		226F8E79218A3024008A59F6 /* Sources */ = {
+		223F6DF4218B8A9C004FB958 /* Sources */ = {
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				226F8E81218A3024008A59F6 /* main.swift in Sources */,
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-		};
-		226F8E87218A305D008A59F6 /* Sources */ = {
-			isa = PBXSourcesBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
-				226F8E97218A30B6008A59F6 /* PrimeNumbersProtocol.swift in Sources */,
-				226F8EAE218B6246008A59F6 /* PrimeNumbersCPU.swift in Sources */,
-				226F8E99218A3173008A59F6 /* PrimeNumbersGPU.swift in Sources */,
-				226F8E9B218A3350008A59F6 /* mapParallel.metal in Sources */,
+				223F6E0C218B8AAB004FB958 /* PrimeNumbersProtocol.swift in Sources */,
+				223F6E0F218B8AAB004FB958 /* mapParallel.metal in Sources */,
+				223F6E0D218B8AAB004FB958 /* PrimeNumbersCPU.swift in Sources */,
+				223F6E0E218B8AAB004FB958 /* PrimeNumbersGPU.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -302,6 +282,14 @@
 			runOnlyForDeploymentPostprocessing = 0;
 		};
 /* End PBXSourcesBuildPhase section */
+
+/* Begin PBXTargetDependency section */
+		223F6DFF218B8A9C004FB958 /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			target = 223F6DF8218B8A9C004FB958 /* PrimeNumbers-Metal */;
+			targetProxy = 223F6DFE218B8A9C004FB958 /* PBXContainerItemProxy */;
+		};
+/* End PBXTargetDependency section */
 
 /* Begin PBXVariantGroup section */
 		226F8EB9218B6B07008A59F6 /* Main.storyboard */ = {
@@ -323,6 +311,70 @@
 /* End PBXVariantGroup section */
 
 /* Begin XCBuildConfiguration section */
+		223F6E03218B8A9C004FB958 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				CLANG_ENABLE_MODULES = YES;
+				CODE_SIGN_IDENTITY = "iPhone Developer";
+				CODE_SIGN_STYLE = Automatic;
+				CURRENT_PROJECT_VERSION = 1;
+				DEFINES_MODULE = YES;
+				DEVELOPMENT_TEAM = 38YYV4LCDS;
+				DYLIB_COMPATIBILITY_VERSION = 1;
+				DYLIB_CURRENT_VERSION = 1;
+				DYLIB_INSTALL_NAME_BASE = "@rpath";
+				INFOPLIST_FILE = "PrimeNumbers-Metal/Info.plist";
+				INSTALL_PATH = "$(LOCAL_LIBRARY_DIR)/Frameworks";
+				IPHONEOS_DEPLOYMENT_TARGET = 11.3;
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/Frameworks",
+					"@loader_path/Frameworks",
+				);
+				PRODUCT_BUNDLE_IDENTIFIER = "Alex.PrimeNumbers-Metal";
+				PRODUCT_NAME = "$(TARGET_NAME:c99extidentifier)";
+				SDKROOT = iphoneos;
+				SKIP_INSTALL = YES;
+				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
+				SWIFT_VERSION = 4.0;
+				TARGETED_DEVICE_FAMILY = "1,2";
+				VERSIONING_SYSTEM = "apple-generic";
+				VERSION_INFO_PREFIX = "";
+			};
+			name = Debug;
+		};
+		223F6E04218B8A9C004FB958 /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				CLANG_ENABLE_MODULES = YES;
+				CODE_SIGN_IDENTITY = "iPhone Developer";
+				CODE_SIGN_STYLE = Automatic;
+				CURRENT_PROJECT_VERSION = 1;
+				DEFINES_MODULE = YES;
+				DEVELOPMENT_TEAM = 38YYV4LCDS;
+				DYLIB_COMPATIBILITY_VERSION = 1;
+				DYLIB_CURRENT_VERSION = 1;
+				DYLIB_INSTALL_NAME_BASE = "@rpath";
+				INFOPLIST_FILE = "PrimeNumbers-Metal/Info.plist";
+				INSTALL_PATH = "$(LOCAL_LIBRARY_DIR)/Frameworks";
+				IPHONEOS_DEPLOYMENT_TARGET = 11.3;
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/Frameworks",
+					"@loader_path/Frameworks",
+				);
+				PRODUCT_BUNDLE_IDENTIFIER = "Alex.PrimeNumbers-Metal";
+				PRODUCT_NAME = "$(TARGET_NAME:c99extidentifier)";
+				SDKROOT = iphoneos;
+				SKIP_INSTALL = YES;
+				SWIFT_VERSION = 4.0;
+				TARGETED_DEVICE_FAMILY = "1,2";
+				VALIDATE_PRODUCT = YES;
+				VERSIONING_SYSTEM = "apple-generic";
+				VERSION_INFO_PREFIX = "";
+			};
+			name = Release;
+		};
 		226F8E82218A3024008A59F6 /* Debug */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
@@ -436,74 +488,10 @@
 			};
 			name = Release;
 		};
-		226F8E85218A3024008A59F6 /* Debug */ = {
-			isa = XCBuildConfiguration;
-			buildSettings = {
-				CODE_SIGN_STYLE = Automatic;
-				DEVELOPMENT_TEAM = 38YYV4LCDS;
-				PRODUCT_NAME = "$(TARGET_NAME)";
-				SWIFT_VERSION = 4.0;
-			};
-			name = Debug;
-		};
-		226F8E86218A3024008A59F6 /* Release */ = {
-			isa = XCBuildConfiguration;
-			buildSettings = {
-				CODE_SIGN_STYLE = Automatic;
-				DEVELOPMENT_TEAM = 38YYV4LCDS;
-				PRODUCT_NAME = "$(TARGET_NAME)";
-				SWIFT_VERSION = 4.0;
-			};
-			name = Release;
-		};
-		226F8E92218A305E008A59F6 /* Debug */ = {
-			isa = XCBuildConfiguration;
-			buildSettings = {
-				CLANG_ENABLE_MODULES = YES;
-				CODE_SIGN_STYLE = Automatic;
-				DEVELOPMENT_TEAM = 38YYV4LCDS;
-				EXECUTABLE_PREFIX = lib;
-				LD_RUNPATH_SEARCH_PATHS = (
-					"$(inherited)",
-					"@executable_path/../Frameworks",
-					"@loader_path/../Frameworks",
-				);
-				MACH_O_TYPE = staticlib;
-				PRODUCT_NAME = "$(TARGET_NAME)";
-				SDKROOT = iphoneos11.3;
-				SKIP_INSTALL = YES;
-				SUPPORTED_PLATFORMS = "iphonesimulator iphoneos macosx";
-				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
-				SWIFT_VERSION = 3.0;
-				VALID_ARCHS = "i386 x86_64 arm64 armv7 armv7s";
-			};
-			name = Debug;
-		};
-		226F8E93218A305E008A59F6 /* Release */ = {
-			isa = XCBuildConfiguration;
-			buildSettings = {
-				CLANG_ENABLE_MODULES = YES;
-				CODE_SIGN_STYLE = Automatic;
-				DEVELOPMENT_TEAM = 38YYV4LCDS;
-				EXECUTABLE_PREFIX = lib;
-				LD_RUNPATH_SEARCH_PATHS = (
-					"$(inherited)",
-					"@executable_path/../Frameworks",
-					"@loader_path/../Frameworks",
-				);
-				MACH_O_TYPE = staticlib;
-				PRODUCT_NAME = "$(TARGET_NAME)";
-				SDKROOT = iphoneos11.3;
-				SKIP_INSTALL = YES;
-				SUPPORTED_PLATFORMS = "iphonesimulator iphoneos macosx";
-				SWIFT_VERSION = 3.0;
-				VALID_ARCHS = "i386 x86_64 arm64 armv7 armv7s";
-			};
-			name = Release;
-		};
 		226F8EC3218B6B09008A59F6 /* Debug */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
+				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CODE_SIGN_IDENTITY = "iPhone Developer";
 				CODE_SIGN_STYLE = Automatic;
@@ -525,6 +513,7 @@
 		226F8EC4218B6B09008A59F6 /* Release */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
+				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CODE_SIGN_IDENTITY = "iPhone Developer";
 				CODE_SIGN_STYLE = Automatic;
@@ -547,29 +536,20 @@
 /* End XCBuildConfiguration section */
 
 /* Begin XCConfigurationList section */
+		223F6E02218B8A9C004FB958 /* Build configuration list for PBXNativeTarget "PrimeNumbers-Metal" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				223F6E03218B8A9C004FB958 /* Debug */,
+				223F6E04218B8A9C004FB958 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
 		226F8E78218A3024008A59F6 /* Build configuration list for PBXProject "macApp" */ = {
 			isa = XCConfigurationList;
 			buildConfigurations = (
 				226F8E82218A3024008A59F6 /* Debug */,
 				226F8E83218A3024008A59F6 /* Release */,
-			);
-			defaultConfigurationIsVisible = 0;
-			defaultConfigurationName = Release;
-		};
-		226F8E84218A3024008A59F6 /* Build configuration list for PBXNativeTarget "macApp" */ = {
-			isa = XCConfigurationList;
-			buildConfigurations = (
-				226F8E85218A3024008A59F6 /* Debug */,
-				226F8E86218A3024008A59F6 /* Release */,
-			);
-			defaultConfigurationIsVisible = 0;
-			defaultConfigurationName = Release;
-		};
-		226F8E91218A305E008A59F6 /* Build configuration list for PBXNativeTarget "PrimeNumbers-Metal" */ = {
-			isa = XCConfigurationList;
-			buildConfigurations = (
-				226F8E92218A305E008A59F6 /* Debug */,
-				226F8E93218A305E008A59F6 /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Release;
