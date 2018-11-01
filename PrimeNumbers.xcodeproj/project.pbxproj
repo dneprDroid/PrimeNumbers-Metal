@@ -221,7 +221,7 @@
 					};
 				};
 			};
-			buildConfigurationList = 226F8E78218A3024008A59F6 /* Build configuration list for PBXProject "macApp" */;
+			buildConfigurationList = 226F8E78218A3024008A59F6 /* Build configuration list for PBXProject "PrimeNumbers" */;
 			compatibilityVersion = "Xcode 9.3";
 			developmentRegion = en;
 			hasScannedForEncodings = 0;
@@ -545,7 +545,7 @@
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Release;
 		};
-		226F8E78218A3024008A59F6 /* Build configuration list for PBXProject "macApp" */ = {
+		226F8E78218A3024008A59F6 /* Build configuration list for PBXProject "PrimeNumbers" */ = {
 			isa = XCConfigurationList;
 			buildConfigurations = (
 				226F8E82218A3024008A59F6 /* Debug */,
