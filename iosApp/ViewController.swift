@@ -18,23 +18,26 @@ class ViewController: UIViewController {
     }
     
     private func test() {
-        let gpuMetalTest = PrimeNumbersMetal()
-        let cpuTest = PrimeNumbersCPU()
-        
-        let gpuMetalResults = gpuMetalTest.computeTest(testName: "GPU Test (Metal)",
-                                                  range: 1...40_000, printPrimeNumbers: false)
-        
-        let cpuResults = cpuTest.computeTest(testName: "CPU Test",
-                                             range: 1...40_000, printPrimeNumbers: false)
-        
-        print("Checking....")
-        assert(cpuResults.elementsEqual(gpuMetalResults, by: self.checkArrays),
-                "Something went wrong: gpu results != cpu results:\n" +
-                "CPU (\(cpuResults.count) items): \(cpuResults)\n" +
-                "----------------------------------------\n" +
-                "GPU (\(gpuMetalResults.count) items): \(gpuMetalResults)")
-        
-        print("Tasks were completed successfully.")
+        DispatchQueue.global().async {
+            
+            let gpuTest = PrimeNumbersGPU()
+            let cpuTest = PrimeNumbersCPU()
+            
+            let gpuResults = gpuTest.computeTest(testName: "GPU Test",
+                                                 range: 1...40_000, printPrimeNumbers: false)
+            
+            let cpuResults = cpuTest.computeTest(testName: "CPU Test",
+                                                 range: 1...40_000, printPrimeNumbers: false)
+            
+            print("Checking....")
+            assert(cpuResults.elementsEqual(gpuResults, by: self.checkArrays),
+                    "Something went wrong: gpu results != cpu results:\n" +
+                    "CPU (\(cpuResults.count) items): \(cpuResults)\n" +
+                    "----------------------------------------\n" +
+                    "GPU (\(gpuResults.count) items): \(gpuResults)")
+            
+            print("Tasks were completed successfully.")
+        }
     }
     
     private func checkArrays(_ v1:CInt, _ v2:CInt)->Bool {
