@@ -11,7 +11,7 @@ import Foundation
 
 public typealias TestResult<ValueType> = (array: [ValueType], time: TimeInterval)
 
-public protocol PrimeNumbersProtocol {
+public protocol PrimeNumbersTestProtocol {
 
     associatedtype ValueType : Numeric & Comparable
     
@@ -19,7 +19,7 @@ public protocol PrimeNumbersProtocol {
     
 }
 
-public extension PrimeNumbersProtocol {
+public extension PrimeNumbersTestProtocol {
     
     @discardableResult
     public func computeTest(testName: String,
@@ -43,7 +43,7 @@ public extension PrimeNumbersProtocol {
 }
 
 //MARK: CountableClosedRange
-public extension PrimeNumbersProtocol where ValueType : Strideable,
+public extension PrimeNumbersTestProtocol where ValueType : Strideable,
                                             ValueType.Stride : SignedInteger {
     
     public func compute(range: CountableClosedRange<ValueType>)->[ValueType] {

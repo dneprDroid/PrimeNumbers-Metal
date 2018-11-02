@@ -9,7 +9,7 @@
 import Foundation
 
 
-public final class PrimeNumbersCPU : PrimeNumbersProtocol {
+public final class PrimeNumbersTestCPU : PrimeNumbersTestProtocol {
     
     
     public init() {}

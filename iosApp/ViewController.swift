@@ -20,8 +20,8 @@ class ViewController: UIViewController {
     private func test() {
         DispatchQueue.global().async {
             
-            let gpuTest = PrimeNumbersGPU()
-            let cpuTest = PrimeNumbersCPU()
+            let gpuTest = PrimeNumbersTestGPU()
+            let cpuTest = PrimeNumbersTestCPU()
             
             let (gpuResults, gpuTime) = gpuTest.computeTest(testName: "GPU Test",
                                                             range: 1...500_000, printPrimeNumbers: false)
