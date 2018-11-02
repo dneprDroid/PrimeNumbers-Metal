@@ -9,6 +9,8 @@
 import Foundation
 
 
+public typealias TestResult<ValueType> = (array: [ValueType], time: TimeInterval)
+
 public protocol PrimeNumbersProtocol {
 
     associatedtype ValueType : Numeric & Comparable
@@ -22,7 +24,7 @@ public extension PrimeNumbersProtocol {
     @discardableResult
     public func computeTest(testName: String,
                             min: ValueType, max: ValueType,
-                            printPrimeNumbers: Bool = false)->[ValueType] {
+                            printPrimeNumbers: Bool = false)->TestResult<ValueType> {
         let currentTime = Date()
         let primeNumbers = self.compute(min: min, max: max)
         let taskTime:TimeInterval = -currentTime.timeIntervalSinceNow
@@ -31,7 +33,7 @@ public extension PrimeNumbersProtocol {
         if printPrimeNumbers {
             print("Prime Numbers for '\(testName)':\n \(primeNumbers)")
         }
-        return primeNumbers
+        return (primeNumbers, taskTime)
     }
 }
 
@@ -46,7 +48,7 @@ public extension PrimeNumbersProtocol where ValueType : Strideable,
     @discardableResult
     public func computeTest(testName: String,
                             range: CountableClosedRange<ValueType>,
-                            printPrimeNumbers: Bool = false)->[ValueType] {
+                            printPrimeNumbers: Bool = false)->TestResult<ValueType> {
         
         return self.computeTest(testName: testName,
                                 min: range.lowerBound, max: range.upperBound,

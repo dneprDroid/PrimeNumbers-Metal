@@ -23,20 +23,27 @@ class ViewController: UIViewController {
             let gpuTest = PrimeNumbersGPU()
             let cpuTest = PrimeNumbersCPU()
             
-            let gpuResults = gpuTest.computeTest(testName: "GPU Test",
-                                                 range: 1...40_000, printPrimeNumbers: false)
+            let (gpuResults, gpuTime) = gpuTest.computeTest(testName: "GPU Test",
+                                                            range: 1...400_000, printPrimeNumbers: false)
             
-            let cpuResults = cpuTest.computeTest(testName: "CPU Test",
-                                                 range: 1...40_000, printPrimeNumbers: false)
+            let (cpuResults, cpuTime) = cpuTest.computeTest(testName: "CPU Test",
+                                                            range: 1...400_000, printPrimeNumbers: false)
             
             print("Checking....")
+            
             assert(cpuResults.elementsEqual(gpuResults, by: self.checkArrays),
                     "Something went wrong: gpu results != cpu results:\n" +
                     "CPU (\(cpuResults.count) items): \(cpuResults)\n" +
                     "----------------------------------------\n" +
                     "GPU (\(gpuResults.count) items): \(gpuResults)")
             
-            print("Tasks were completed successfully.")
+            print("Tasks were completed successfully:")
+            
+            if gpuTime < cpuTime {
+                print("GPU test is faster than CPU test in \(cpuTime/gpuTime) times")
+            } else {
+                print("CPU test is faster than GPU test in \(gpuTime/cpuTime) times")
+            }
         }
     }
     

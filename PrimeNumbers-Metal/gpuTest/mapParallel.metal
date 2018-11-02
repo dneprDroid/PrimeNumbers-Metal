@@ -10,10 +10,15 @@
 using namespace metal;
 
 
-typedef int Integer;
-typedef uint UInteger;
+typedef int IntType;
+typedef uint UIntType;
+typedef float FloatType;
 
-inline bool isPrimeNumber(const UInteger num) {
+
+static_assert(sizeof(IntType) == sizeof(UIntType) && sizeof(IntType) == sizeof(FloatType),
+              "Error: sizeof(IntType), sizeof(UIntType), sizeof(FloatType) aren't equal.");
+
+inline bool isPrimeNumber(const UIntType num) {
     if (num <= 1)
         return false;
     if (num <= 3)
@@ -21,21 +26,22 @@ inline bool isPrimeNumber(const UInteger num) {
     if (num % 2 == 0)
         return false;
     
-    for (UInteger i = 2; i < num/2; i++) {
+    for (UIntType i = 2;  i <= sqrt((FloatType)num);  i++) {
         if (num % i == 0)
             return false;
     }
     return true;
 }
 
-kernel void mapParallel(const device UInteger& minVal [[ buffer(0) ]],
-                        const device UInteger& maxVal [[ buffer(1) ]],
-                        device Integer* results [[ buffer(2) ]],
+kernel void mapParallel(const device UIntType& minVal [[ buffer(0) ]],
+                        const device UIntType& maxVal [[ buffer(1) ]],
+                        
+                        device IntType* results [[ buffer(2) ]],
                         
                         uint3 gid [[thread_position_in_grid]]) {
     
-    const UInteger inputIndex = gid.x;
-    const UInteger number = minVal + inputIndex;
+    const UIntType inputIndex = gid.x;
+    const UIntType number = minVal + inputIndex;
     if (number > maxVal)
         return;
     if (isPrimeNumber(number))

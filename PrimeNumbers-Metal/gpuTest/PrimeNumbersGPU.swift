@@ -25,7 +25,7 @@ public final class PrimeNumbersGPU : PrimeNumbersProtocol {
         assert(min > 0 && min < max,
                "Error: min >= max or min <= 0, where min=\(min), max=\(max)")
         
-        print("Current Range: min = \(min), max = \(max)")
+        print("Current number range: \(min)...\(max)")
         
         guard let device = MTLCreateSystemDefaultDevice() else {
             fatalError("This device doesn't support Metal")
@@ -65,8 +65,9 @@ public final class PrimeNumbersGPU : PrimeNumbersProtocol {
         encoder.setBytes(&maxParam,
                          length: MemoryLayout.size(ofValue: maxParam),
                          index: ParamsIndex.max.rawValue)
-        
-        encoder.setBuffer(resultsBuffer, offset: 0, index: ParamsIndex.resultsBuffer.rawValue)
+        encoder.setBuffer(resultsBuffer,
+                          offset: 0,
+                          index: ParamsIndex.resultsBuffer.rawValue)
         
         encoder.configure(expectedThreadCount: threadCount,
                           pipeline: pipeline)
