@@ -12,7 +12,7 @@ import Metal
 public final class PrimeNumbersTestGPU : PrimeNumbersTestProtocol {
     
     struct Constants {
-        static let InvalidPrimeNumber:CInt = -1
+        static let InvalidPrimeNumber:CInt = 0
     }
     
     private enum ParamsIndex : Int {
@@ -26,6 +26,16 @@ public final class PrimeNumbersTestGPU : PrimeNumbersTestProtocol {
                                    max: max)
     }
     
+    private func allocateTexture(device: MTLDevice, itemsCount: Int)->MTLTexture {
+        let textureDescriptor = MTLTextureDescriptor.texture2DDescriptor(pixelFormat: .r32Uint,
+                                                                         width: itemsCount,
+                                                                         height: 1,
+                                                                         mipmapped: false)
+        textureDescriptor.usage = .shaderWrite
+        return device.makeTexture(descriptor: textureDescriptor)!
+    }
+    
+        
     private func computePrimeNumbers(min: CInt, max: CInt)->[CInt] {
         guard let device = MTLCreateSystemDefaultDevice() else {
             fatalError("This device doesn't support Metal")
@@ -43,11 +53,8 @@ public final class PrimeNumbersTestGPU : PrimeNumbersTestProtocol {
 
         // Params:
         let resultsCount = primeNumbersCount(min: min, max: max)
-        // Create array [-1, -1, ..., -1]
-        var results = [CInt](repeating: Constants.InvalidPrimeNumber, count: resultsCount)
-        let resultsBuffer = device.makeBuffer(bytes: &results,
-                                              length: MemoryLayout<CInt>.stride * resultsCount,
-                                              options: [])!
+        // Create Texture [0, 0, ..., 0]
+        let resultTexture = allocateTexture(device: device, itemsCount: resultsCount)
 
         var minParam = CUnsignedInt(min)
         var maxParam = CUnsignedInt(max)
@@ -66,9 +73,8 @@ public final class PrimeNumbersTestGPU : PrimeNumbersTestProtocol {
         encoder.setBytes(&maxParam,
                          length: MemoryLayout.size(ofValue: maxParam),
                          index: ParamsIndex.max.rawValue)
-        encoder.setBuffer(resultsBuffer,
-                          offset: 0,
-                          index: ParamsIndex.resultsBuffer.rawValue)
+        encoder.setTexture(resultTexture,
+                           index: ParamsIndex.resultsBuffer.rawValue)
         
         // Configure thread count according to count of numbers range
         encoder.configure(expectedThreadCount: threadCount,
@@ -79,9 +85,11 @@ public final class PrimeNumbersTestGPU : PrimeNumbersTestProtocol {
         cmds.waitUntilCompleted()
         
         // Read output values
-        let resultsOut = resultsBuffer.contents().bindMemory(to: CInt.self,
-                                                             capacity: resultsCount)
-        return Array(UnsafeBufferPointer(start: resultsOut, count: resultsCount))
+        let resultsOut = resultTexture.toArray(width: resultsCount,
+                                               height: 1,
+                                               featureChannels: 1,
+                                               initial: CInt(0))
+        return resultsOut
               .filter { $0 != Constants.InvalidPrimeNumber }
     }
     
@@ -133,5 +141,20 @@ extension MTLComputeCommandEncoder {
         
         dispatchThreadgroups(threadgroupsPerGrid,
                              threadsPerThreadgroup: threadsPerThreadgroup)
+    }
+}
+
+
+
+extension MTLTexture {
+    
+    func toArray<T>(width: Int, height: Int, featureChannels: Int, initial: T) -> [T] {
+        assert(featureChannels != 3 && featureChannels <= 4, "channels must be 1, 2, or 4")
+        
+        var bytes = [T](repeating: initial, count: width * height * featureChannels)
+        let region = MTLRegionMake2D(0, 0, width, height)
+        getBytes(&bytes, bytesPerRow: width * featureChannels * MemoryLayout<T>.stride,
+                 from: region, mipmapLevel: 0)
+        return bytes
     }
 }
