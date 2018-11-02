@@ -19,14 +19,13 @@ public final class PrimeNumbersGPU : PrimeNumbersProtocol {
         case min = 0, max, resultsBuffer
     }
     
+//    #define minVal 1
+//    #define maxVal 2
+    
+
     public init() {}
     
     public func compute(min: CInt, max: CInt)->[CInt] {
-        assert(min > 0 && min < max,
-               "Error: min >= max or min <= 0, where min=\(min), max=\(max)")
-        
-        print("Current number range: \(min)...\(max)")
-        
         guard let device = MTLCreateSystemDefaultDevice() else {
             fatalError("This device doesn't support Metal")
         }

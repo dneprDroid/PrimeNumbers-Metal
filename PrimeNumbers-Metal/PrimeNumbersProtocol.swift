@@ -25,6 +25,11 @@ public extension PrimeNumbersProtocol {
     public func computeTest(testName: String,
                             min: ValueType, max: ValueType,
                             printPrimeNumbers: Bool = false)->TestResult<ValueType> {
+        assert(min > 0 && min < max,
+               "Error: min >= max or min <= 0, where min=\(min), max=\(max)")
+        
+        print("[\(testName)] : Current number range: \(min)...\(max)")
+        
         let currentTime = Date()
         let primeNumbers = self.compute(min: min, max: max)
         let taskTime:TimeInterval = -currentTime.timeIntervalSinceNow
