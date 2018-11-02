@@ -9,7 +9,7 @@
 import Metal
 
 
-public final class PrimeNumbersGPU : PrimeNumbersProtocol {
+public final class PrimeNumbersMetal : PrimeNumbersProtocol {
     
     struct Constants {
         static let InvalidPrimeNumber:CInt = -1
