@@ -5,12 +5,11 @@ Compute prime numbers with Metal GPU programming and compare its performance to 
 
 ```
 'GPU Test' : Current number range: 1...500 000
-------------------------------
-Expected Thread Count : 500 000
-------------------------------
-'GPU Test': 0.407819032669067 sec
+'GPU Test' : 0.407819032669067 sec
+
 'CPU Test' : Current number range: 1...500 000
-'CPU Test': 10.0038249492645 sec
+'CPU Test' : 10.0038249492645 sec
+
 Checking....
 Tasks were completed successfully:
 GPU test is faster than CPU test in 24.53 times
