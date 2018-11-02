@@ -14,9 +14,10 @@ public final class PrimeNumbersGPU : PrimeNumbersProtocol {
     struct Constants {
         static let InvalidPrimeNumber:CInt = -1
     }
+    private let thisBundle = Bundle(for: PrimeNumbersGPU.self)
     
     private enum ParamsIndex : Int {
-        case min = 0, max, resultsBuffer
+        case resultsBuffer = 0
     }
     
 //    #define minVal 1
@@ -29,55 +30,57 @@ public final class PrimeNumbersGPU : PrimeNumbersProtocol {
         guard let device = MTLCreateSystemDefaultDevice() else {
             fatalError("This device doesn't support Metal")
         }
-        let lib = try! device.makeDefaultLibrary(bundle: Bundle(for: type(of: self)))
-        let compute = lib.makeFunction(name: "mapParallel")!
-        let pipeline = try! device.makeComputePipelineState(function: compute)
-        
-        
-        
-        let queue = device.makeCommandQueue()!
-        let cmds = queue.makeCommandBuffer()!
-        let encoder = cmds.makeComputeCommandEncoder()!
-        encoder.setComputePipelineState(pipeline)
+        do {
+            let libPath = thisBundle.path(forResource: "mapParallel.metal", ofType: "txt")!
+            let libSource = try String(contentsOfFile: libPath, encoding: String.Encoding.utf8)
+            
+            let libOptions = MTLCompileOptions()
+            libOptions.preprocessorMacros = ["minVal" : NSNumber(value: min),
+                                             "maxVal" : NSNumber(value: max)] as [String : NSObject]
+            libOptions.fastMathEnabled = true
+            
+            let lib = try device.makeLibrary(source: libSource, options: libOptions)
+            let compute = lib.makeFunction(name: "mapParallel")!
+            let pipeline = try device.makeComputePipelineState(function: compute)
+            
+            
+            
+            let queue = device.makeCommandQueue()!
+            let cmds = queue.makeCommandBuffer()!
+            let encoder = cmds.makeComputeCommandEncoder()!
+            encoder.setComputePipelineState(pipeline)
 
-        // Params:
-        let resultsCount = primeNumbersCount(min: min, max: max)
-        var results = [CInt](repeating: Constants.InvalidPrimeNumber, count: resultsCount)
-        let resultsBuffer = device.makeBuffer(bytes: &results,
-                                              length: MemoryLayout<CInt>.stride * resultsCount,
-                                              options: [])!
+            // Params:
+            let resultsCount = primeNumbersCount(min: min, max: max)
+            var results = [CInt](repeating: Constants.InvalidPrimeNumber, count: resultsCount)
+            let resultsBuffer = device.makeBuffer(bytes: &results,
+                                                  length: MemoryLayout<CInt>.stride * resultsCount,
+                                                  options: [])!
 
-        var minParam = CUnsignedInt(min)
-        var maxParam = CUnsignedInt(max)
-
-        let inputCount = CUnsignedInt(max-min+1)
-        let threadCount = Int(inputCount)
-        
-        print("--------------------")
-        print("Expected Thread Count : \(threadCount)")
-        print("Expected results count : \(resultsCount)")
-        print("--------------------")
-        
-        encoder.setBytes(&minParam,
-                         length: MemoryLayout.size(ofValue: minParam),
-                         index: ParamsIndex.min.rawValue)
-        encoder.setBytes(&maxParam,
-                         length: MemoryLayout.size(ofValue: maxParam),
-                         index: ParamsIndex.max.rawValue)
-        encoder.setBuffer(resultsBuffer,
-                          offset: 0,
-                          index: ParamsIndex.resultsBuffer.rawValue)
-        
-        encoder.configure(expectedThreadCount: threadCount,
-                          pipeline: pipeline)
-        encoder.endEncoding()
-        
-        cmds.commit()
-        cmds.waitUntilCompleted()
-        let resultsOut = resultsBuffer.contents().bindMemory(to: CInt.self,
-                                                             capacity: resultsCount)
-        return Array(UnsafeBufferPointer(start: resultsOut, count: resultsCount))
-              .filter { $0 != Constants.InvalidPrimeNumber}
+            let inputCount = CUnsignedInt(max-min+1)
+            let threadCount = Int(inputCount)
+            
+            print("--------------------")
+            print("Expected Thread Count : \(threadCount)")
+            print("Expected results count : \(resultsCount)")
+            print("--------------------")
+            encoder.setBuffer(resultsBuffer,
+                              offset: 0,
+                              index: ParamsIndex.resultsBuffer.rawValue)
+            
+            encoder.configure(expectedThreadCount: threadCount,
+                              pipeline: pipeline)
+            encoder.endEncoding()
+            
+            cmds.commit()
+            cmds.waitUntilCompleted()
+            let resultsOut = resultsBuffer.contents().bindMemory(to: CInt.self,
+                                                                 capacity: resultsCount)
+            return Array(UnsafeBufferPointer(start: resultsOut, count: resultsCount))
+                  .filter { $0 != Constants.InvalidPrimeNumber}
+        } catch {
+            fatalError(error.localizedDescription)
+        }
     }
     
     

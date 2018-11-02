@@ -1,11 +1,3 @@
-//
-//  compute.metal
-//  PrimeNumbers-Metal
-//
-//  Created by user on 10/31/18.
-//  Copyright © 2018 Alex. All rights reserved.
-//
-
 #include <metal_stdlib>
 using namespace metal;
 
@@ -15,8 +7,8 @@ typedef uint UIntType;
 typedef float FloatType;
 
 
-static_assert(sizeof(IntType) == sizeof(UIntType) && sizeof(IntType) == sizeof(FloatType),
-              "Error: sizeof(IntType), sizeof(UIntType), sizeof(FloatType) aren't equal.");
+// static_assert(sizeof(IntType) == sizeof(UIntType) && sizeof(IntType) == sizeof(FloatType),
+//               "Error: sizeof(IntType), sizeof(UIntType), sizeof(FloatType) aren't equal.");
 
 inline bool isPrimeNumber(const UIntType num) {
     if (num <= 1)
@@ -33,10 +25,7 @@ inline bool isPrimeNumber(const UIntType num) {
     return true;
 }
 
-kernel void mapParallel(const device UIntType& minVal [[ buffer(0) ]],
-                        const device UIntType& maxVal [[ buffer(1) ]],
-                        
-                        device IntType* results [[ buffer(2) ]],
+kernel void mapParallel(device IntType* results [[ buffer(0) ]],
                         
                         uint3 gid [[thread_position_in_grid]]) {
     

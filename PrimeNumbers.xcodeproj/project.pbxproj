@@ -7,13 +7,14 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		22005C39218C766000A448DE /* mapParallel.metal.txt in Resources */ = {isa = PBXBuildFile; fileRef = 223F6E1B218B9E97004FB958 /* mapParallel.metal.txt */; };
 		223F6DFD218B8A9C004FB958 /* PrimeNumbers_Metal.h in Headers */ = {isa = PBXBuildFile; fileRef = 223F6DFB218B8A9C004FB958 /* PrimeNumbers_Metal.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		223F6E00218B8A9C004FB958 /* PrimeNumbers_Metal.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 223F6DF9218B8A9C004FB958 /* PrimeNumbers_Metal.framework */; };
 		223F6E01218B8A9C004FB958 /* PrimeNumbers_Metal.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = 223F6DF9218B8A9C004FB958 /* PrimeNumbers_Metal.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
 		223F6E0C218B8AAB004FB958 /* PrimeNumbersProtocol.swift in Sources */ = {isa = PBXBuildFile; fileRef = 223F6E06218B8AAB004FB958 /* PrimeNumbersProtocol.swift */; };
 		223F6E1C218B9E97004FB958 /* PrimeNumbersCPU.swift in Sources */ = {isa = PBXBuildFile; fileRef = 223F6E18218B9E97004FB958 /* PrimeNumbersCPU.swift */; };
 		223F6E1D218B9E97004FB958 /* PrimeNumbersGPU.swift in Sources */ = {isa = PBXBuildFile; fileRef = 223F6E1A218B9E97004FB958 /* PrimeNumbersGPU.swift */; };
-		223F6E1E218B9E97004FB958 /* mapParallel.metal in Sources */ = {isa = PBXBuildFile; fileRef = 223F6E1B218B9E97004FB958 /* mapParallel.metal */; };
+		223F6E1E218B9E97004FB958 /* mapParallel.metal.txt in Sources */ = {isa = PBXBuildFile; fileRef = 223F6E1B218B9E97004FB958 /* mapParallel.metal.txt */; };
 		226F8EB6218B6B07008A59F6 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 226F8EB5218B6B07008A59F6 /* AppDelegate.swift */; };
 		226F8EB8218B6B07008A59F6 /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 226F8EB7218B6B07008A59F6 /* ViewController.swift */; };
 		226F8EBB218B6B07008A59F6 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 226F8EB9218B6B07008A59F6 /* Main.storyboard */; };
@@ -52,7 +53,7 @@
 		223F6E06218B8AAB004FB958 /* PrimeNumbersProtocol.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PrimeNumbersProtocol.swift; sourceTree = "<group>"; };
 		223F6E18218B9E97004FB958 /* PrimeNumbersCPU.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PrimeNumbersCPU.swift; sourceTree = "<group>"; };
 		223F6E1A218B9E97004FB958 /* PrimeNumbersGPU.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PrimeNumbersGPU.swift; sourceTree = "<group>"; };
-		223F6E1B218B9E97004FB958 /* mapParallel.metal */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.metal; path = mapParallel.metal; sourceTree = "<group>"; };
+		223F6E1B218B9E97004FB958 /* mapParallel.metal.txt */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = mapParallel.metal.txt; sourceTree = "<group>"; };
 		226F8EB3218B6B07008A59F6 /* iosApp.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = iosApp.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		226F8EB5218B6B07008A59F6 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		226F8EB7218B6B07008A59F6 /* ViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ViewController.swift; sourceTree = "<group>"; };
@@ -105,7 +106,7 @@
 			isa = PBXGroup;
 			children = (
 				223F6E1A218B9E97004FB958 /* PrimeNumbersGPU.swift */,
-				223F6E1B218B9E97004FB958 /* mapParallel.metal */,
+				223F6E1B218B9E97004FB958 /* mapParallel.metal.txt */,
 			);
 			path = gpuTest;
 			sourceTree = "<group>";
@@ -243,6 +244,7 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				22005C39218C766000A448DE /* mapParallel.metal.txt in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -264,7 +266,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				223F6E0C218B8AAB004FB958 /* PrimeNumbersProtocol.swift in Sources */,
-				223F6E1E218B9E97004FB958 /* mapParallel.metal in Sources */,
+				223F6E1E218B9E97004FB958 /* mapParallel.metal.txt in Sources */,
 				223F6E1C218B9E97004FB958 /* PrimeNumbersCPU.swift in Sources */,
 				223F6E1D218B9E97004FB958 /* PrimeNumbersGPU.swift in Sources */,
 			);
