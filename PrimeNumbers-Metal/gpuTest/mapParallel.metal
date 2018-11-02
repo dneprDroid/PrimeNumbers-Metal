@@ -38,7 +38,7 @@ kernel void mapParallel(const device UIntType& minVal [[ buffer(0) ]],
                         
                         device IntType* results [[ buffer(2) ]],
                         
-                        uint3 gid [[thread_position_in_grid]]) // Theread Index
+                        uint3 gid [[thread_position_in_grid]]) // Thread Index
 {
     
     const UIntType inputIndex = gid.x;
