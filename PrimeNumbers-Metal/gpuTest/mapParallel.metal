@@ -26,7 +26,7 @@ inline bool isPrimeNumber(const UIntType num) {
     if (num % 2 == 0)
         return false;
     
-    for (UIntType i = 2;  i <= sqrt((FloatType)num);  i++) {
+    for (UIntType i = 3;  i <= sqrt((FloatType)num);  i+=2) {
         if (num % i == 0)
             return false;
     }

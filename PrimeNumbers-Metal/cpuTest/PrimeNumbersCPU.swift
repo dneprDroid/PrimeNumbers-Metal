@@ -35,8 +35,8 @@ public final class PrimeNumbersCPU : PrimeNumbersProtocol {
         if number % 2 == 0 {
             return false
         }
-        let maxValue = sqrt(Double(number))
-        for i in 2...CInt(maxValue) {
+        let maxValue = sqrt(Double(number)) + 1
+        for i in 3...CInt(maxValue) {
             if number % i == 0 {
                 return false
             }

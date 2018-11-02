@@ -24,10 +24,10 @@ class ViewController: UIViewController {
             let cpuTest = PrimeNumbersCPU()
             
             let (gpuResults, gpuTime) = gpuTest.computeTest(testName: "GPU Test",
-                                                            range: 1...400_000, printPrimeNumbers: false)
+                                                            range: 1...500_000, printPrimeNumbers: false)
             
             let (cpuResults, cpuTime) = cpuTest.computeTest(testName: "CPU Test",
-                                                            range: 1...400_000, printPrimeNumbers: false)
+                                                            range: 1...500_000, printPrimeNumbers: false)
             
             print("Checking....")
             
