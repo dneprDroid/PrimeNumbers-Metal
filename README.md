@@ -1,6 +1,7 @@
 ## PrimeNumbers-Metal
 
-Compute prime numbers with Metal GPU programming and compare its performance to CPU.
+Compute prime numbers with Metal GPU programming and compare its performance to CPU results.
+
 
 ```
 'GPU Test' : Current number range: 1...500 000
