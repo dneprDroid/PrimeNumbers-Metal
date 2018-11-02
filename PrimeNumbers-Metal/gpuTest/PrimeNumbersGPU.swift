@@ -19,10 +19,6 @@ public final class PrimeNumbersGPU : PrimeNumbersProtocol {
         case min = 0, max, resultsBuffer
     }
     
-//    #define minVal 1
-//    #define maxVal 2
-    
-
     public init() {}
     
     public func compute(min: CInt, max: CInt)->[CInt] {
@@ -42,6 +38,7 @@ public final class PrimeNumbersGPU : PrimeNumbersProtocol {
 
         // Params:
         let resultsCount = primeNumbersCount(min: min, max: max)
+        // Create array [-1, -1, ..., -1]
         var results = [CInt](repeating: Constants.InvalidPrimeNumber, count: resultsCount)
         let resultsBuffer = device.makeBuffer(bytes: &results,
                                               length: MemoryLayout<CInt>.stride * resultsCount,
@@ -58,6 +55,7 @@ public final class PrimeNumbersGPU : PrimeNumbersProtocol {
         print("Expected results count : \(resultsCount)")
         print("--------------------")
         
+        // Set params to kernel function
         encoder.setBytes(&minParam,
                          length: MemoryLayout.size(ofValue: minParam),
                          index: ParamsIndex.min.rawValue)
@@ -68,12 +66,15 @@ public final class PrimeNumbersGPU : PrimeNumbersProtocol {
                           offset: 0,
                           index: ParamsIndex.resultsBuffer.rawValue)
         
+        // Configure thread count according to count of numbers range
         encoder.configure(expectedThreadCount: threadCount,
                           pipeline: pipeline)
         encoder.endEncoding()
         
         cmds.commit()
         cmds.waitUntilCompleted()
+        
+        // Read output values
         let resultsOut = resultsBuffer.contents().bindMemory(to: CInt.self,
                                                              capacity: resultsCount)
         return Array(UnsafeBufferPointer(start: resultsOut, count: resultsCount))
@@ -128,7 +129,5 @@ extension MTLComputeCommandEncoder {
         
         dispatchThreadgroups(threadgroupsPerGrid,
                              threadsPerThreadgroup: threadsPerThreadgroup)
-
-
     }
 }

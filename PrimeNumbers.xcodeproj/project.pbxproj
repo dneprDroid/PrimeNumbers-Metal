@@ -81,6 +81,17 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		22005C3A218C7CA700A448DE /* res */ = {
+			isa = PBXGroup;
+			children = (
+				226F8EB9218B6B07008A59F6 /* Main.storyboard */,
+				226F8EBC218B6B09008A59F6 /* Assets.xcassets */,
+				226F8EBE218B6B09008A59F6 /* LaunchScreen.storyboard */,
+				226F8EC1218B6B09008A59F6 /* Info.plist */,
+			);
+			path = res;
+			sourceTree = "<group>";
+		};
 		223F6DFA218B8A9C004FB958 /* PrimeNumbers-Metal */ = {
 			isa = PBXGroup;
 			children = (
@@ -139,12 +150,9 @@
 		226F8EB4218B6B07008A59F6 /* iosApp */ = {
 			isa = PBXGroup;
 			children = (
+				22005C3A218C7CA700A448DE /* res */,
 				226F8EB5218B6B07008A59F6 /* AppDelegate.swift */,
 				226F8EB7218B6B07008A59F6 /* ViewController.swift */,
-				226F8EB9218B6B07008A59F6 /* Main.storyboard */,
-				226F8EBC218B6B09008A59F6 /* Assets.xcassets */,
-				226F8EBE218B6B09008A59F6 /* LaunchScreen.storyboard */,
-				226F8EC1218B6B09008A59F6 /* Info.plist */,
 			);
 			path = iosApp;
 			sourceTree = "<group>";

@@ -14,7 +14,7 @@ typedef int IntType;
 typedef uint UIntType;
 typedef float FloatType;
 
-
+// Check sizes of types :
 static_assert(sizeof(IntType) == sizeof(UIntType) && sizeof(IntType) == sizeof(FloatType),
               "Error: sizeof(IntType), sizeof(UIntType), sizeof(FloatType) aren't equal.");
 
@@ -38,7 +38,8 @@ kernel void mapParallel(const device UIntType& minVal [[ buffer(0) ]],
                         
                         device IntType* results [[ buffer(2) ]],
                         
-                        uint3 gid [[thread_position_in_grid]]) {
+                        uint3 gid [[thread_position_in_grid]]) // Theread Index
+{
     
     const UIntType inputIndex = gid.x;
     const UIntType number = minVal + inputIndex;
