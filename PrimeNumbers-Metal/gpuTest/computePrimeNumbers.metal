@@ -14,6 +14,8 @@ typedef int IntType;
 typedef uint UIntType;
 typedef float FloatType;
 
+constant uint textureSideSize [[function_constant(0)]];
+
 // Check sizes of types :
 static_assert(sizeof(IntType) == sizeof(UIntType) && sizeof(IntType) == sizeof(FloatType),
               "Error: sizeof(IntType), sizeof(UIntType), sizeof(FloatType) aren't equal.");
@@ -40,8 +42,14 @@ kernel void forEachNumbers(const device UIntType& minVal [[ buffer(0) ]],
                         
                            uint3 gid [[thread_position_in_grid]]) // Thread Index
 {
+
+    const uint x = gid.x;
+    const uint y = gid.y;
     
-    const UIntType inputIndex = gid.x;
+    if (x >= textureSideSize || y >= textureSideSize) {
+        return;
+    }
+    const UIntType inputIndex = x + y * textureSideSize;
     const UIntType number = minVal + (inputIndex << 1);
     
     if (number > maxVal)

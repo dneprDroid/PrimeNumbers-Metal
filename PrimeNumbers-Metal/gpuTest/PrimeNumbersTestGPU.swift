@@ -26,10 +26,11 @@ public final class PrimeNumbersTestGPU : PrimeNumbersTestProtocol {
                                    max: max)
     }
     
-    private func allocateTexture(device: MTLDevice, itemsCount: Int)->MTLTexture {
+    private func allocateTexture(device: MTLDevice, itemsCount: Int, sizeSize: Int)->MTLTexture {
+//        let maxSideSize = 16384
         let textureDescriptor = MTLTextureDescriptor.texture2DDescriptor(pixelFormat: .r32Uint,
-                                                                         width: itemsCount,
-                                                                         height: 1,
+                                                                         width:  sizeSize,
+                                                                         height: sizeSize,
                                                                          mipmapped: false)
         textureDescriptor.usage = .shaderWrite
         return device.makeTexture(descriptor: textureDescriptor)!
@@ -40,8 +41,18 @@ public final class PrimeNumbersTestGPU : PrimeNumbersTestProtocol {
         guard let device = MTLCreateSystemDefaultDevice() else {
             fatalError("This device doesn't support Metal")
         }
+        
+        let resultsCount = primeNumbersCount(min: min, max: max)
+        
+        let sizeSize = Int(sqrt(Double(resultsCount)))+1
+        var sizeSizeU = CUnsignedInt(sizeSize)
+        
         let lib = try! device.makeDefaultLibrary(bundle: Bundle(for: type(of: self)))
-        let compute = lib.makeFunction(name: "forEachNumbers")!
+        
+        let constants = MTLFunctionConstantValues()
+        constants.setConstantValue(&sizeSizeU, type: .uint, index: 0);
+        
+        let compute = try! lib.makeFunction(name: "forEachNumbers", constantValues: constants)
         let pipeline = try! device.makeComputePipelineState(function: compute)
         
         
@@ -49,22 +60,14 @@ public final class PrimeNumbersTestGPU : PrimeNumbersTestProtocol {
         let queue = device.makeCommandQueue()!
         let cmds = queue.makeCommandBuffer()!
         let encoder = cmds.makeComputeCommandEncoder()!
-        encoder.setComputePipelineState(pipeline)
 
         // Params:
-        let resultsCount = primeNumbersCount(min: min, max: max)
         // Create Texture [0, 0, ..., 0]
-        let resultTexture = allocateTexture(device: device, itemsCount: resultsCount)
+
+        let resultTexture = allocateTexture(device: device, itemsCount: resultsCount, sizeSize: sizeSize)
 
         var minParam = CUnsignedInt(min)
         var maxParam = CUnsignedInt(max)
-
-        let threadCount = Int(resultsCount)
-        
-        print("--------------------")
-        print("Expected Thread Count : \(threadCount)")
-        print("Expected results count : \(resultsCount)")
-        print("--------------------")
         
         // Set params to kernel function
         encoder.setBytes(&minParam,
@@ -77,16 +80,15 @@ public final class PrimeNumbersTestGPU : PrimeNumbersTestProtocol {
                            index: ParamsIndex.resultsBuffer.rawValue)
         
         // Configure thread count according to count of numbers range
-        encoder.configure(expectedThreadCount: threadCount,
-                          pipeline: pipeline)
+        encoder.dispatch(pipeline: pipeline, texture: resultTexture)
         encoder.endEncoding()
         
         cmds.commit()
         cmds.waitUntilCompleted()
         
         // Read output values
-        let resultsOut = resultTexture.toArray(width: resultsCount,
-                                               height: 1,
+        let resultsOut = resultTexture.toArray(width: sizeSize,
+                                               height: sizeSize,
                                                featureChannels: 1,
                                                initial: CInt(0))
         return resultsOut
@@ -139,12 +141,37 @@ extension MTLComputeCommandEncoder {
 //        print("threadExecutionWidth = \(pipeline.threadExecutionWidth)")
 //        print("----------------------------------------------------")
         
+        setComputePipelineState(pipeline)
         dispatchThreadgroups(threadgroupsPerGrid,
                              threadsPerThreadgroup: threadsPerThreadgroup)
     }
 }
 
+extension MTLComputeCommandEncoder {
+    func dispatch(pipeline: MTLComputePipelineState, texture: MTLTexture) {
+        let w = pipeline.threadExecutionWidth
+        let h = pipeline.maxTotalThreadsPerThreadgroup / w
+        let threadGroupSize = MTLSizeMake(w, h, 1)
+        
+        let threadGroups = MTLSizeMake(
+            (texture.width       + threadGroupSize.width  - 1) / threadGroupSize.width,
+            (texture.height      + threadGroupSize.height - 1) / threadGroupSize.height,
+            (texture.arrayLength + threadGroupSize.depth  - 1) / threadGroupSize.depth)
+        
+        setComputePipelineState(pipeline)
+        dispatchThreadgroups(threadGroups, threadsPerThreadgroup: threadGroupSize)
+    }
+}
 
+extension MTLComputeCommandEncoder {
+    
+    func set<T>(number: T, index: Int) {
+        var n = number
+        setBytes(&n,
+                 length: MemoryLayout.size(ofValue: number),
+                 index: index)
+    }
+}
 
 extension MTLTexture {
     
