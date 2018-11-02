@@ -33,12 +33,12 @@ inline bool isPrimeNumber(const UIntType num) {
     return true;
 }
 
-kernel void mapParallel(const device UIntType& minVal [[ buffer(0) ]],
-                        const device UIntType& maxVal [[ buffer(1) ]],
+kernel void forEachNumbers(const device UIntType& minVal [[ buffer(0) ]],
+                           const device UIntType& maxVal [[ buffer(1) ]],
                         
-                        device IntType* results [[ buffer(2) ]],
+                           device IntType* results [[ buffer(2) ]],
                         
-                        uint3 gid [[thread_position_in_grid]]) // Thread Index
+                           uint3 gid [[thread_position_in_grid]]) // Thread Index
 {
     
     const UIntType inputIndex = gid.x;

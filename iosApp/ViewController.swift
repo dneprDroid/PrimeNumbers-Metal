@@ -20,29 +20,32 @@ class ViewController: UIViewController {
     private func test() {
         DispatchQueue.global().async {
             
+            let deviceName = DeviceInfo.deviceName()
+            print("Current Device Name: \(deviceName)")
+            
             let gpuTest = PrimeNumbersTestGPU()
             let cpuTest = PrimeNumbersTestCPU()
             
-            let (gpuResults, gpuTime) = gpuTest.computeTest(testName: "GPU Test",
-                                                            range: 1...500_000, printPrimeNumbers: false)
+            let (gpuPrimes, gpuTime) = gpuTest.computeTest(testName: "GPU Test",
+                                                           range: 1...500_000, printPrimeNumbers: false)
             
-            let (cpuResults, cpuTime) = cpuTest.computeTest(testName: "CPU Test",
-                                                            range: 1...500_000, printPrimeNumbers: false)
+            let (cpuPrimes, cpuTime) = cpuTest.computeTest(testName: "CPU Test",
+                                                           range: 1...500_000, printPrimeNumbers: false)
             
             print("Checking....")
             
-            assert(cpuResults.elementsEqual(gpuResults, by: self.checkArrays),
+            assert(cpuPrimes.elementsEqual(gpuPrimes, by: self.checkArrays),
                     "Something went wrong: gpu results != cpu results:\n" +
-                    "CPU (\(cpuResults.count) items): \(cpuResults)\n" +
+                    "CPU (\(cpuPrimes.count) items): \(cpuPrimes)\n" +
                     "----------------------------------------\n" +
-                    "GPU (\(gpuResults.count) items): \(gpuResults)")
+                    "GPU (\(gpuPrimes.count) items): \(gpuPrimes)")
             
             print("Tasks were completed successfully:")
             
             if gpuTime < cpuTime {
-                print("GPU test is faster than CPU test in \(cpuTime/gpuTime) times")
+                print("GPU test is \(cpuTime/gpuTime) times faster than CPU test")
             } else {
-                print("CPU test is faster than GPU test in \(gpuTime/cpuTime) times")
+                print("CPU test is \(gpuTime/cpuTime) times faster than GPU test")
             }
         }
     }

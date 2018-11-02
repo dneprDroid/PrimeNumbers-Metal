@@ -1,18 +1,20 @@
 ## PrimeNumbers-Metal
 
-Compute prime numbers with Metal GPU programming and compare its performance to CPU results.
+Compute prime numbers with Metal GPU API and compare its performance to CPU results.
 
 
 ```
-'GPU Test' : Current number range: 1...500 000
+Current Device Name: iPhone 8
+
+'GPU Test' : Current numbers range: 1 ... 500 000
 'GPU Test' : 0.407819032669067 sec
 
-'CPU Test' : Current number range: 1...500 000
+'CPU Test' : Current numbers range: 1 ... 500 000
 'CPU Test' : 10.0038249492645 sec
 
 Checking....
 Tasks were completed successfully:
-GPU test is faster than CPU test in 24.53 times
+GPU test is 27.02 times faster than CPU test
 ```
 
 # Metal Shader
@@ -47,12 +49,12 @@ inline bool isPrimeNumber(const UIntType num) {
     return true;
 }
 
-kernel void mapParallel(const device UIntType& minVal [[ buffer(0) ]],
-                        const device UIntType& maxVal [[ buffer(1) ]],
+kernel void forEachNumbers(const device UIntType& minVal [[ buffer(0) ]],
+                           const device UIntType& maxVal [[ buffer(1) ]],
                         
-                        device IntType* results [[ buffer(2) ]],
+                           device IntType* results [[ buffer(2) ]],
                         
-                        uint3 gid [[thread_position_in_grid]]) // Thread Index
+                           uint3 gid [[thread_position_in_grid]]) // Thread Index
 {
     
     const UIntType inputIndex = gid.x;

@@ -28,7 +28,7 @@ public extension PrimeNumbersTestProtocol {
         assert(min > 0 && min < max,
                "Error: min >= max or min <= 0, where min=\(min), max=\(max)")
         
-        print("'\(testName)' : Current number range: \(min)...\(max)")
+        print("'\(testName)' : Current numbers range: \(min) ... \(max)")
         
         let currentTime = Date()
         let primeNumbers = self.compute(min: min, max: max)
@@ -36,7 +36,7 @@ public extension PrimeNumbersTestProtocol {
         
         print("'\(testName)': \(taskTime) sec")
         if printPrimeNumbers {
-            print("Prime Numbers for '\(testName)':\n \(primeNumbers)")
+            print("Prime numbers for '\(testName)':\n \(primeNumbers)")
         }
         return (primeNumbers, taskTime)
     }
@@ -44,7 +44,7 @@ public extension PrimeNumbersTestProtocol {
 
 //MARK: CountableClosedRange
 public extension PrimeNumbersTestProtocol where ValueType : Strideable,
-                                            ValueType.Stride : SignedInteger {
+                                                ValueType.Stride : SignedInteger {
     
     public func compute(range: CountableClosedRange<ValueType>)->[ValueType] {
         return self.compute(min: range.lowerBound, max: range.upperBound)

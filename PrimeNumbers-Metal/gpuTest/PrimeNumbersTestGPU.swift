@@ -26,7 +26,7 @@ public final class PrimeNumbersTestGPU : PrimeNumbersTestProtocol {
             fatalError("This device doesn't support Metal")
         }
         let lib = try! device.makeDefaultLibrary(bundle: Bundle(for: type(of: self)))
-        let compute = lib.makeFunction(name: "mapParallel")!
+        let compute = lib.makeFunction(name: "forEachNumbers")!
         let pipeline = try! device.makeComputePipelineState(function: compute)
         
         
