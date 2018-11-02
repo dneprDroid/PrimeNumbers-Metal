@@ -47,8 +47,10 @@ kernel void forEachNumbers(const device UIntType& minVal [[ buffer(0) ]],
     if (number > maxVal)
         return;
     
-    if (number == 1)
+    if (number == 1) {
         results[inputIndex] = 2;
+        return;
+    }
     
     if (isPrimeNumber(number))
         results[inputIndex] = number;
