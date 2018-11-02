@@ -42,9 +42,14 @@ kernel void forEachNumbers(const device UIntType& minVal [[ buffer(0) ]],
 {
     
     const UIntType inputIndex = gid.x;
-    const UIntType number = minVal + inputIndex;
+    const UIntType number = minVal + inputIndex*2;
+    
     if (number > maxVal)
         return;
+    
+    if (number == 1)
+        results[inputIndex] = 2;
+    
     if (isPrimeNumber(number))
         results[inputIndex] = number;
 }

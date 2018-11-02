@@ -35,11 +35,14 @@ public final class PrimeNumbersTestCPU : PrimeNumbersTestProtocol {
         if number % 2 == 0 {
             return false
         }
-        let maxValue = sqrt(Double(number)) + 1
-        for i in 3...CInt(maxValue) {
+        let maxIndex = CInt(sqrt(Double(number)) + 1)
+        
+        var i:CInt = 3
+        while i <= maxIndex {
             if number % i == 0 {
                 return false
             }
+            i += 2
         }
         return true
     }

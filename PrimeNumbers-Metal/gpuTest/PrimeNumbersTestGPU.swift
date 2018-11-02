@@ -22,6 +22,11 @@ public final class PrimeNumbersTestGPU : PrimeNumbersTestProtocol {
     public init() {}
     
     public func compute(min: CInt, max: CInt)->[CInt] {
+        return computePrimeNumbers(min: min % 2 == 0 ? min+1 : min,
+                                   max: max)
+    }
+    
+    private func computePrimeNumbers(min: CInt, max: CInt)->[CInt] {
         guard let device = MTLCreateSystemDefaultDevice() else {
             fatalError("This device doesn't support Metal")
         }
@@ -47,8 +52,7 @@ public final class PrimeNumbersTestGPU : PrimeNumbersTestProtocol {
         var minParam = CUnsignedInt(min)
         var maxParam = CUnsignedInt(max)
 
-        let inputCount = CUnsignedInt(max-min+1)
-        let threadCount = Int(inputCount)
+        let threadCount = Int(resultsCount)
         
         print("--------------------")
         print("Expected Thread Count : \(threadCount)")
@@ -78,12 +82,12 @@ public final class PrimeNumbersTestGPU : PrimeNumbersTestProtocol {
         let resultsOut = resultsBuffer.contents().bindMemory(to: CInt.self,
                                                              capacity: resultsCount)
         return Array(UnsafeBufferPointer(start: resultsOut, count: resultsCount))
-              .filter { $0 != Constants.InvalidPrimeNumber}
+              .filter { $0 != Constants.InvalidPrimeNumber }
     }
     
     
     private func primeNumbersCount(number: CInt)->Int {
-        return Int(number)
+        return Int(number/2)
         
         //        if number == 0 {
         //            return 0
