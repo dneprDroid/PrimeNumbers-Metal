@@ -47,10 +47,11 @@ class ViewController: UIViewController {
             } else {
                 print("CPU test is \(gpuTime/cpuTime) times faster than GPU test")
             }
+            
         }
     }
     
-    private func checkArrays(_ v1:CInt, _ v2:CInt)->Bool {
+    private func checkArrays(_ v1:UInt32, _ v2:UInt32)->Bool {
         let equal = (v1 == v2)
         if !equal {
             print("Error: value from CPU results != value from GPU result: \(v1) != \(v2)")

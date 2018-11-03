@@ -14,8 +14,8 @@ public final class PrimeNumbersTestCPU : PrimeNumbersTestProtocol {
     
     public init() {}
     
-    public func compute(min: CInt, max: CInt)->[CInt] {
-        var results = [CInt]()
+    public func compute(min: UInt32, max: UInt32)->[UInt32] {
+        var results:[UInt32] = []
         for number in min...max {
             if !isPrimeNumber(number) {
                 continue
@@ -25,7 +25,7 @@ public final class PrimeNumbersTestCPU : PrimeNumbersTestProtocol {
         return results
     }
     
-    private func isPrimeNumber(_ number: CInt)->Bool {
+    private func isPrimeNumber(_ number: UInt32)->Bool {
         if number <= 1 {
             return false
         }
@@ -35,9 +35,9 @@ public final class PrimeNumbersTestCPU : PrimeNumbersTestProtocol {
         if number % 2 == 0 {
             return false
         }
-        let maxIndex = CInt(sqrt(Double(number)) + 1)
+        let maxIndex = UInt32(sqrt(Double(number)) + 1)
         
-        var i:CInt = 3
+        var i:UInt32 = 3
         while i <= maxIndex {
             if number % i == 0 {
                 return false

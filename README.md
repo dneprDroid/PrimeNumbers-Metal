@@ -1,4 +1,4 @@
-## PrimeNumbers-Metal
+# PrimeNumbers-Metal
 
 Compute prime numbers with Metal GPU API and compare its performance to CPU results.
 
@@ -6,25 +6,25 @@ Compute prime numbers with Metal GPU API and compare its performance to CPU resu
 ```
 Current Device Name: iPhone 8
 
-'GPU Test' : Current numbers range: 1 ... 500 000
-'GPU Test' : 0.407819032669067 sec
+'GPU Test' : Current numbers range: 1 ... 500_000
+'GPU Test' : 0.177096962928772 sec
 
-'CPU Test' : Current numbers range: 1 ... 500 000
-'CPU Test' : 10.0038249492645 sec
+'CPU Test' : Current numbers range: 1 ... 500_000
+'CPU Test' : 0.490992069244385 sec
 
 Checking....
 Tasks were completed successfully:
-GPU test is 27.02 times faster than CPU test
+GPU test is 2.77 times faster than CPU test
 ```
 
-# Metal Shader
+## Metal Shader
 
 See GPU test sources - [this](https://github.com/dneprDroid/PrimeNumbers-Metal/tree/master/PrimeNumbers-Metal/gpuTest).
 
 ```cpp
-
 #include <metal_stdlib>
 using namespace metal;
+
 
 typedef int IntType;
 typedef uint UIntType;
@@ -52,15 +52,22 @@ inline bool isPrimeNumber(const UIntType num) {
 kernel void forEachNumbers(const device UIntType& minVal [[ buffer(0) ]],
                            const device UIntType& maxVal [[ buffer(1) ]],
                         
-                           device IntType* results [[ buffer(2) ]],
+                           device UIntType* results [[ buffer(2) ]],
                         
                            uint3 gid [[thread_position_in_grid]]) // Thread Index
 {
     
     const UIntType inputIndex = gid.x;
-    const UIntType number = minVal + inputIndex;
+    const UIntType number = minVal + (inputIndex << 1);
+    
     if (number > maxVal)
         return;
+    
+    if (number == 1) {
+        results[inputIndex] = 2;
+        return;
+    }
+    
     if (isPrimeNumber(number))
         results[inputIndex] = number;
 }

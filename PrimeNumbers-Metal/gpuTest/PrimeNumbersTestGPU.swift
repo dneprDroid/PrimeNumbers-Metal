@@ -12,7 +12,7 @@ import Metal
 public final class PrimeNumbersTestGPU : PrimeNumbersTestProtocol {
     
     struct Constants {
-        static let InvalidPrimeNumber:CInt = -1
+        static let InvalidPrimeNumber:UInt32 = 0
     }
     
     private enum ParamsIndex : Int {
@@ -21,12 +21,12 @@ public final class PrimeNumbersTestGPU : PrimeNumbersTestProtocol {
     
     public init() {}
     
-    public func compute(min: CInt, max: CInt)->[CInt] {
+    public func compute(min: UInt32, max: UInt32)->[UInt32] {
         return computePrimeNumbers(min: min % 2 == 0 ? min+1 : min,
                                    max: max)
     }
     
-    private func computePrimeNumbers(min: CInt, max: CInt)->[CInt] {
+    private func computePrimeNumbers(min: UInt32, max: UInt32)->[UInt32] {
         guard let device = MTLCreateSystemDefaultDevice() else {
             fatalError("This device doesn't support Metal")
         }
@@ -43,16 +43,14 @@ public final class PrimeNumbersTestGPU : PrimeNumbersTestProtocol {
 
         // Params:
         let resultsCount = primeNumbersCount(min: min, max: max)
-        // Create array [-1, -1, ..., -1]
-        var results = [CInt](repeating: Constants.InvalidPrimeNumber, count: resultsCount)
-        let resultsBuffer = device.makeBuffer(bytes: &results,
-                                              length: MemoryLayout<CInt>.stride * resultsCount,
+        // Create array [0, 0, ..., 0]
+        let resultsBuffer = device.makeBuffer(length: MemoryLayout<UInt32>.stride * resultsCount,
                                               options: [])!
 
-        var minParam = CUnsignedInt(min)
-        var maxParam = CUnsignedInt(max)
+        var minParam = min
+        var maxParam = max
 
-        let threadCount = Int(resultsCount)
+        let threadCount = resultsCount
         
         print("--------------------")
         print("Expected Thread Count : \(threadCount)")
@@ -79,27 +77,23 @@ public final class PrimeNumbersTestGPU : PrimeNumbersTestProtocol {
         cmds.waitUntilCompleted()
         
         // Read output values
-        let resultsOut = resultsBuffer.contents().bindMemory(to: CInt.self,
-                                                             capacity: resultsCount)
-        return Array(UnsafeBufferPointer(start: resultsOut, count: resultsCount))
-              .filter { $0 != Constants.InvalidPrimeNumber }
+        let bufferContent:UnsafeMutablePointer<UInt32> = resultsBuffer.contents()
+                                                                      .bindMemory(to: UInt32.self,
+                                                                                  capacity: resultsCount)
+        var resultArray:[UInt32] = []
+        var i = 0
+        while i <= resultsCount {
+            let n = bufferContent[i]
+            if n != Constants.InvalidPrimeNumber {
+                resultArray.append(n)
+            }
+            i += 1
+        }
+        return resultArray
     }
     
-    
-    private func primeNumbersCount(number: CInt)->Int {
-        return Int(number/2)
-        
-        //        if number == 0 {
-        //            return 0
-        //        }
-        //        let x = Double(number)
-        //        // https://en.wikipedia.org/wiki/Prime-counting_function
-        //        let result = x/log10(x - 1)
-        //        return Int(result * 1.5)
-    }
-    
-    private func primeNumbersCount(min:CInt, max:CInt)->Int {
-        return abs(primeNumbersCount(number: max) - primeNumbersCount(number: min)) + 1
+    private func primeNumbersCount(min:UInt32, max:UInt32)->Int {
+        return Int((max-min)/2 + 1)
     }
 }
 

@@ -36,13 +36,13 @@ inline bool isPrimeNumber(const UIntType num) {
 kernel void forEachNumbers(const device UIntType& minVal [[ buffer(0) ]],
                            const device UIntType& maxVal [[ buffer(1) ]],
                         
-                           device IntType* results [[ buffer(2) ]],
+                           device UIntType* results [[ buffer(2) ]],
                         
                            uint3 gid [[thread_position_in_grid]]) // Thread Index
 {
     
     const UIntType inputIndex = gid.x;
-    const UIntType number = minVal + inputIndex*2;
+    const UIntType number = minVal + (inputIndex << 1);
     
     if (number > maxVal)
         return;
