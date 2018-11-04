@@ -16,7 +16,21 @@ public final class PrimeNumbersTestCPU : PrimeNumbersTestProtocol {
     
     public func compute(min: UInt32, max: UInt32)->[UInt32] {
         var results:[UInt32] = []
-        for number in min...max {
+        
+        let maxIndex = (max - min)/2
+        let minValue:UInt32
+        
+        if min <= 2 {
+            minValue = 3
+            results = [2]
+        } else if min % 2 == 0 {
+            minValue = min + 1
+        } else {
+            minValue = min
+        }
+        
+        for i in 0..<maxIndex {
+            let number = minValue + i*2
             if !isPrimeNumber(number) {
                 continue
             }

@@ -12,6 +12,8 @@ Current Device Name: iPhone 8
 'CPU Test' : Current numbers range: 1 ... 500_000
 'CPU Test' : 0.490992069244385 sec
 
+[2, 3, 5, 7, 11, 13, 17, 19, 23, ....  499973, 499979]
+
 Checking....
 Tasks were completed successfully:
 GPU test is 2.77 times faster than CPU test
@@ -22,6 +24,7 @@ GPU test is 2.77 times faster than CPU test
 See GPU test sources - [this](https://github.com/dneprDroid/PrimeNumbers-Metal/tree/master/PrimeNumbers-Metal/gpuTest).
 
 ```cpp
+
 #include <metal_stdlib>
 using namespace metal;
 
@@ -52,13 +55,13 @@ inline bool isPrimeNumber(const UIntType num) {
 kernel void forEachNumbers(const device UIntType& minVal [[ buffer(0) ]],
                            const device UIntType& maxVal [[ buffer(1) ]],
                         
-                           device UIntType* results [[ buffer(2) ]],
+                           device UIntType* results [[ buffer(2) ]], // Results buffer
                         
-                           uint3 gid [[thread_position_in_grid]]) // Thread Index
+                           uint3 gid [[thread_position_in_grid]])    // Thread Index
 {
-    
+    // assert(minVal % 2 != 0 && "minVal % 2 == 0, set minVal param as minVal+1");
     const UIntType inputIndex = gid.x;
-    const UIntType number = minVal + (inputIndex << 1);
+    const UIntType number = minVal + (inputIndex << 1); // Calculate every odd number
     
     if (number > maxVal)
         return;

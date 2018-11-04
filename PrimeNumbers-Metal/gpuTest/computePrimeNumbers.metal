@@ -36,13 +36,13 @@ inline bool isPrimeNumber(const UIntType num) {
 kernel void forEachNumbers(const device UIntType& minVal [[ buffer(0) ]],
                            const device UIntType& maxVal [[ buffer(1) ]],
                         
-                           device UIntType* results [[ buffer(2) ]],
+                           device UIntType* results [[ buffer(2) ]], // Results buffer
                         
-                           uint3 gid [[thread_position_in_grid]]) // Thread Index
+                           uint3 gid [[thread_position_in_grid]])    // Thread Index
 {
-    
+    // assert(minVal % 2 != 0 && "minVal % 2 == 0, set minVal param as minVal+1");
     const UIntType inputIndex = gid.x;
-    const UIntType number = minVal + (inputIndex << 1);
+    const UIntType number = minVal + (inputIndex << 1); // Calculate every odd number
     
     if (number > maxVal)
         return;

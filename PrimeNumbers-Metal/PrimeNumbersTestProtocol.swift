@@ -30,9 +30,9 @@ public extension PrimeNumbersTestProtocol {
         
         print("'\(testName)': Current numbers range: \(min) ... \(max)")
         
-        let currentTime = Date()
+        let startTime = Date()
         let primeNumbers = self.compute(min: min, max: max)
-        let taskTime:TimeInterval = -currentTime.timeIntervalSinceNow
+        let taskTime:TimeInterval = -startTime.timeIntervalSinceNow
         
         print("'\(testName)': \(taskTime) sec")
         if printPrimeNumbers {

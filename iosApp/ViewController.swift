@@ -30,7 +30,7 @@ class ViewController: UIViewController {
                                                            range: 1...500_000, printPrimeNumbers: false)
             
             let (cpuPrimes, cpuTime) = cpuTest.computeTest(testName: "CPU Test",
-                                                           range: 1...500_000, printPrimeNumbers: false)
+                                                           range: 1...500_000, printPrimeNumbers: true)
             
             print("Checking....")
             
